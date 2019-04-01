@@ -2,4 +2,6 @@ this is a test file to check that the intgrating from github to slack is success
 
 Please delete this file afterward.
 
+This should complete the task on the Pivotal Tracker.
+
 Thank you
