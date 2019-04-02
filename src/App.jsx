@@ -1,20 +1,26 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes/Routes';
+import store from './store';
+import FetchRecipe from './pages/FetchRecipe/FetchRecipe';
 
 const envVar = process.env.ENV_VAR;
+
 /**
  * @description - App component
  * @param {object} props
- * @returns {JSX} - Returns all Components
+ * @returns {JSX} - Retuerns all Component
  */
 const App = () => (
-  <BrowserRouter>
-    <div>
-      <h1>Welcome to Naija Chop Chop {envVar}</h1>
-      <Routes />
-    </div>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <div>
+        <h1>Welcome to Naija Chop Chop {envVar}</h1>
+        <Routes />
+      </div>
+    </BrowserRouter>
+  </Provider>
 );
 
 export default App;
