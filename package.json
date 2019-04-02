@@ -57,10 +57,10 @@
     "devstart": "DEBUG=NaijaChopChop* nodemon --watch config/webpack.config.js --exec \"webpack-dev-server --config config/webpack.config.js --env development\"",
     "runserver": " npm run build && npm run start",
     "start": "DEBUG=NaijaChopChop* node server.js",
-    "test": "jest"
+    "test": "jest --config jest.config.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -71,24 +71,5 @@
       "eslint --fix",
       "git add"
     ]
-  },
-  "jest": {
-    "modulePaths": [
-      "/shared/vendor/modules"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js",
-      "\\.(gif|ttf|eot|svg)$": "<rootDir>/test/__mocks__/fileMock.js"
-    },
-    "transform": {
-      "^.+\\.(js|jsx)$": "babel-jest"
-    }
   }
 }
