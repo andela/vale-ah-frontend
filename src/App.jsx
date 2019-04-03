@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes/Routes';
 import store from './store';
-import FetchRecipe from './pages/FetchRecipe/FetchRecipe';
+import FetchRecipe from './pages/Recipe/Recipe';
 
 const envVar = process.env.ENV_VAR;
 
