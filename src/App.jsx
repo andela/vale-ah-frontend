@@ -1,10 +1,17 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Route from './routes/Routes';
 
 /**
- * Renders the App
- * @returns {JSX} App Component
+ * @description - App component
+ * @param {object} props
+ * @returns {JSX} - Returns all Component
  */
-const App = () => <h1>Welcome to Naija Chop Chop</h1>;
+const App = () => (
+  <Router>
+    <h1>Welcome to Naija Chop Chop</h1>
+    <Route />
+  </Router>
+);
 
-export default hot(App);
+export default App;
