@@ -17,6 +17,7 @@ const App = () => (
     <BrowserRouter>
       <div>
         <h1>Welcome to Naija Chop Chop {envVar}</h1>
+        <FetchRecipe />
         <Routes />
       </div>
     </BrowserRouter>
