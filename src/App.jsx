@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes/Routes';
-import 'dotenv/config';
 
 const envVar = process.env.ENV_VAR;
 /**
