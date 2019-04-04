@@ -31,7 +31,7 @@ Recipes.propTypes = {
  * @returns {state} - state
  */
 const mapStateToProps = state => ({
-  recipes: state.recipes.recipes,
+  recipes: state.recipes,
 });
 
 export default connect(mapStateToProps)(Recipes);

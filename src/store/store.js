@@ -10,8 +10,11 @@ if (process.env.NODE_ENV === `development`) {
   middlewares.push(createLogger());
 }
 
+const initialState = {};
+
 const store = createStore(
   rootReducer,
+  initialState,
   composeWithDevTools(applyMiddleware(...middlewares))
 );
 
