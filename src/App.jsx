@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Route from './routes/Routes';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes/Routes';
 
 /**
  * @description - App component
  * @param {object} props
- * @returns {JSX} - Returns all Component
+ * @returns {JSX} - Returns all Components
  */
 const App = () => (
-  <Router>
+  <BrowserRouter>
     <h1>Welcome to Naija Chop Chop</h1>
-    <Route />
-  </Router>
+    <Routes />
+  </BrowserRouter>
 );
 
 export default App;
