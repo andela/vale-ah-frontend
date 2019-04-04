@@ -27,7 +27,7 @@ const baseConfig = merge([
       publicPath: '/',
       filename: 'bundle.js',
     },
-    plugins: [new Dotenv()],
+    plugins: [new Dotenv({ silent: true })],
   },
   loadHtml(),
   loadJavascript({ include: path.join(__dirname, '../src') }),
@@ -49,7 +49,7 @@ const prodConfig = merge([
   {
     output: {
       filename: 'bundle.[chunkhash:8].js',
-      publicPath: './',
+      publicPath: '/',
     },
     optimization: {
       minimizer: [

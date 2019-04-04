@@ -17,7 +17,6 @@ exports[`<App /> matches the snapshot 1`] = `
       <h1>
         Welcome to Naija Chop Chop
       </h1>
-      <Connect(Recipes) />
       <routes />
     </div>
   </BrowserRouter>
