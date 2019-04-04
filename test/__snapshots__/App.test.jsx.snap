@@ -4,7 +4,8 @@ exports[`<App /> matches the snapshot 1`] = `
 <BrowserRouter>
   <div>
     <h1>
-      Welcome to Naija Chop Chop
+      Welcome to Naija Chop Chop 
+      SomeVar
     </h1>
     <routes />
   </div>

@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OpitmizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 const postCssPresetEnv = require('postcss-preset-env');
+const cssNano = require('cssnano');
 
 exports.devServer = () => ({
   devServer: {
@@ -67,13 +67,13 @@ exports.loadStyles = ({ include } = {}) => ({
   },
 });
 
-exports.extractStyles = ({ include, use = [] } = {}) => ({
+exports.extractStyles = ({ include } = {}) => ({
   module: {
     rules: [
       {
         test: /\.css$/,
         include,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', ...use],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.scss$/,
@@ -81,8 +81,24 @@ exports.extractStyles = ({ include, use = [] } = {}) => ({
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                postCssPresetEnv({ autoprefixer: { grid: true } }),
+                cssNano({
+                  preset: [
+                    'default',
+                    {
+                      discardComments: { removeAll: true },
+                      cssDeclarationSorter: { order: 'smacss' },
+                    },
+                  ],
+                }),
+              ],
+            },
+          },
           'fast-sass-loader',
-          ...use,
         ],
       },
     ],
@@ -90,21 +106,6 @@ exports.extractStyles = ({ include, use = [] } = {}) => ({
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash:8].css',
-    }),
-  ],
-});
-
-exports.transformCss = () => ({
-  loader: 'postcss-loader',
-  options: {
-    plugins: [postCssPresetEnv()],
-  },
-});
-
-exports.minifyStyles = ({ cssNanoConfig }) => ({
-  plugins: [
-    new OpitmizeCssPlugin({
-      cssProcessorPluginOptions: cssNanoConfig,
     }),
   ],
 });

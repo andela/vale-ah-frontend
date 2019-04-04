@@ -4,16 +4,15 @@ const merge = require('webpack-merge');
 const Dotenv = require('dotenv-webpack');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 const {
-  autoPrefix,
   devServer,
   extractStyles,
   loadHtml,
   loadImages,
   loadJavascript,
   loadStyles,
-  minifyStyles,
 } = require('./webpack-pieces');
 
 const baseConfig = merge([
@@ -55,7 +54,6 @@ const prodConfig = merge([
     optimization: {
       minimizer: [
         new TerserPlugin({
-          sourceMap: true,
           terserOptions: {
             output: {
               comments: false,
@@ -64,20 +62,10 @@ const prodConfig = merge([
         }),
       ],
     },
+    plugins: [new ImageminPlugin({ test: /\.(jpe?g|png|svg)$/i })],
   },
-  extractStyles({ use: [autoPrefix()] }),
-  minifyStyles({
-    cssNanoConfig: {
-      preset: [
-        'default',
-        {
-          discardComments: { removeAll: true },
-          cssDeclarationSorter: { order: 'smacss' },
-        },
-      ],
-    },
-  }),
   loadImages({ options: { limit: 5000 } }),
+  extractStyles(),
 ]);
 
 module.exports = env =>

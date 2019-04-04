@@ -6,6 +6,10 @@
 
   ],
   "env": {
+    "ENV_VAR": {
+      "description": "The number of processes to run.",
+      "value": "<someVar />"
+    }
   },
   "formation": {
   },
