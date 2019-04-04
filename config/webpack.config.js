@@ -69,6 +69,6 @@ const prodConfig = merge([
 ]);
 
 module.exports = env =>
-  merge(baseConfig, env === 'development' ? devConfig : prodConfig, {
+  merge(baseConfig, env !== 'production' ? devConfig : prodConfig, {
     mode: env,
   });
