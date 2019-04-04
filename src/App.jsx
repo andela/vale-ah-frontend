@@ -8,11 +8,6 @@ import Recipe from './pages/Recipe/Recipe';
 const envVar = process.env.ENV_VAR;
 
 /**
- * Renders the App
- * @returns {JSX} App Component
- */
-
-/**
  * @description - App component
  * @param {object} props
  * @returns {JSX} - Retuerns all Component
