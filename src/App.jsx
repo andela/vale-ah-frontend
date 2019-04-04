@@ -2,10 +2,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes/Routes';
-import store from './store';
-import FetchRecipe from './pages/Recipe/Recipe';
+import store from './store/store';
+import Recipe from './pages/Recipe/Recipe';
 
 const envVar = process.env.ENV_VAR;
+
+/**
+ * Renders the App
+ * @returns {JSX} App Component
+ */
 
 /**
  * @description - App component
@@ -17,7 +22,7 @@ const App = () => (
     <BrowserRouter>
       <div>
         <h1>Welcome to Naija Chop Chop {envVar}</h1>
-        <FetchRecipe />
+        <Recipe />
         <Routes />
       </div>
     </BrowserRouter>
