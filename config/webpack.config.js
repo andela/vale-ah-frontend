@@ -1,9 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const Dotenv = require('dotenv-webpack');
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 const {
   devServer,
+  extractStyles,
   loadHtml,
   loadImages,
   loadJavascript,
@@ -20,35 +25,50 @@ const baseConfig = merge([
     output: {
       path: path.resolve(__dirname, '../build'),
       publicPath: '/',
-      filename: 'bundle.[hash].js',
+      filename: 'bundle.js',
     },
+    plugins: [new Dotenv()],
   },
-  loadStyles(),
   loadHtml(),
   loadJavascript({ include: path.join(__dirname, '../src') }),
 ]);
 
 const devConfig = merge([
   {
-    plugins: [new webpack.HotModuleReplacementPlugin()],
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+      new ErrorOverlayPlugin(),
+    ],
   },
   devServer(),
   loadImages(),
+  loadStyles(),
 ]);
 
 const prodConfig = merge([
   {
     output: {
-      path: path.resolve(__dirname, '../build'),
+      filename: 'bundle.[chunkhash:8].js',
       publicPath: './',
-      filename: 'bundle.[hash].js',
     },
-    devServer: {
-      historyApiFallback: true,
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            output: {
+              comments: false,
+            },
+          },
+        }),
+      ],
     },
+    plugins: [new ImageminPlugin({ test: /\.(jpe?g|png|svg)$/i })],
   },
   loadImages({ options: { limit: 5000 } }),
+  extractStyles(),
 ]);
 
-module.exports = mode =>
-  merge(baseConfig, mode === 'development' ? devConfig : prodConfig, { mode });
+module.exports = env =>
+  merge(baseConfig, env !== 'production' ? devConfig : prodConfig, {
+    mode: env,
+  });

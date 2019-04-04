@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes/Routes';
 
+const envVar = process.env.ENV_VAR;
 /**
  * @description - App component
  * @param {object} props
@@ -10,7 +11,7 @@ import Routes from './routes/Routes';
 const App = () => (
   <BrowserRouter>
     <div>
-      <h1>Welcome to Naija Chop Chop</h1>
+      <h1>Welcome to Naija Chop Chop {envVar}</h1>
       <Routes />
     </div>
   </BrowserRouter>

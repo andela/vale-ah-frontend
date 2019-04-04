@@ -4,10 +4,15 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "autoprefixer": "9.4.7",
+    "cssnano": "4.1.10",
     "debug": "4.1.1",
     "dotenv": "7.0.0",
     "express": "4.16.4",
     "html-webpack-plugin": "3.2.0",
+    "imagemin-webpack-plugin": "2.4.2",
+    "mini-css-extract-plugin": "0.5.0",
+    "postcss-preset-env": "6.6.0",
     "prop-types": "15.7.1",
     "react": "16.8.1",
     "react-dom": "16.8.1",
@@ -23,13 +28,14 @@
     "@babel/core": "7.2.2",
     "@babel/preset-env": "7.3.1",
     "@babel/preset-react": "7.0.0",
-    "autoprefixer": "9.4.7",
     "babel-jest": "24.5.0",
     "babel-loader": "8.0.5",
     "css-loader": "2.1.0",
+    "dotenv-webpack": "1.7.0",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.11.2",
-    "enzyme-to-json": "^3.3.5",
+    "enzyme-to-json": "3.3.5",
+    "error-overlay-webpack-plugin": "0.2.0",
     "eslint": "5.13.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "4.0.0",
@@ -44,13 +50,14 @@
     "husky": "1.3.1",
     "jest": "24.5.0",
     "lint-staged": "8.1.5",
-    "mini-css-extract-plugin": "0.5.0",
     "node-sass": "4.11.0",
     "nodemon": "1.18.10",
+    "postcss-loader": "3.0.0",
     "prettier": "1.16.4",
     "react-test-renderer": "16.8.6",
     "style-loader": "0.23.1",
     "svg-inline-loader": "0.8.0",
+    "terser-webpack-plugin": "1.2.3",
     "url-loader": "1.1.2",
     "webpack": "4.29.3",
     "webpack-cli": "3.2.3",
@@ -66,6 +73,10 @@
   },
   "author": "",
   "license": "MIT",
+  "browserslist": [
+    "defaults",
+    "not dead"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -76,5 +87,8 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "engines": {
+    "node": "11.x"
   }
 }
