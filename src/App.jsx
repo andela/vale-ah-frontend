@@ -5,8 +5,6 @@ import Routes from './routes/Routes';
 import store from './store/store';
 import Recipe from './pages/Recipe/Recipe';
 
-const envVar = process.env.ENV_VAR;
-
 /**
  * @description - App component
  * @param {object} props
@@ -16,7 +14,7 @@ const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <h1>Welcome to Naija Chop Chop {envVar}</h1>
+        <h1>Welcome to Naija Chop Chop</h1>
         <Recipe />
         <Routes />
       </div>
