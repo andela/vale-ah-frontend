@@ -10,11 +10,10 @@ import Recipe from '../pages/Recipe/Recipe';
  */
 const routes = () => (
   <Switch>
-    <Route path="/" render={() => <h3>Hello from the landing page</h3>} exact />
+    <Route path="/" component={Recipe} exact />
     <Route path="/page1" render={() => <h3>Hello from page1</h3>} exact />
     <Route path="/page2" render={() => <h3>Hello from page2</h3>} exact />
     <Route path="/login" component={Login} exact />
-    <Route path="/recipe" component={Recipe} exact />
   </Switch>
 );
 

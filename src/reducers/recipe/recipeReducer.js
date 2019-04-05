@@ -1,6 +1,6 @@
-import { GET_RECIPE } from '../actions/action-types';
+import { GET_RECIPE } from '../../actions/action-types';
 
-const initialState = {
+export const initialState = {
   '1a': {
     id: '1a',
     title: 'eba with milk',

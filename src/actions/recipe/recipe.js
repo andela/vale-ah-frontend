@@ -1,4 +1,4 @@
-import { GET_RECIPE } from './action-types';
+import { GET_RECIPE } from '../action-types';
 
 /**
  * @description - Get all recipe
