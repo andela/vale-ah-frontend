@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Auth from '../Auth/Auth';
 
 /**
- * Login Component
+ * Register Component
  */
-class Login extends Component {
+class Register extends Component {
   /**
    * @constructor
    * @param {object} props properties
@@ -16,17 +16,17 @@ class Login extends Component {
   }
 
   /**
-   * Renders the login component
-   * @returns {JSX.Element} Login element
+   * Renders the Register component
+   * @returns {JSX.Element} Register element
    */
   render() {
     const { onClose } = this.props;
-    return <Auth authType="login" onClose={onClose} />;
+    return <Auth authType="register" onClose={onClose} />;
   }
 }
 
-Login.propTypes = {
+Register.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default Register;

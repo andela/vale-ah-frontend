@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Auth /> matches the snapshot 1`] = `
+<div
+  className="auth"
+>
+  <div
+    className="close-button"
+  >
+    <button
+      type="button"
+    >
+      ×
+    </button>
+  </div>
+  <form>
+    <AuthHeader
+      authType="login"
+    />
+    <main>
+      <fieldset>
+        <legend>
+          or
+        </legend>
+        <input
+          className="text-field"
+          name="email"
+          placeholder="Email"
+          type="email"
+        />
+        <input
+          className="text-field"
+          name="password"
+          placeholder="Password"
+          type="password"
+        />
+        <p
+          className="forgot-password"
+        >
+          Forgot password?
+        </p>
+        <Button
+          color="green"
+          onClick={[Function]}
+          type="submit"
+        >
+          Log in
+        </Button>
+      </fieldset>
+    </main>
+  </form>
+  <p
+    className="other-auth"
+  >
+    You don't have an account? 
+    <Link
+      className="action"
+      replace={false}
+      to="/register"
+    >
+      Create account
+    </Link>
+  </p>
+</div>
+`;

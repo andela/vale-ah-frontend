@@ -2,16 +2,12 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
-import Login from './Login';
+import Auth from './Auth';
 
 configure({ adapter: new Adapter() });
-describe('<App />', () => {
-  it('h1 contains correct text', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('h2').text()).toBe('Kindly login below');
-  });
+describe('<Auth />', () => {
   it('matches the snapshot', () => {
-    const tree = shallow(<Login />);
+    const tree = shallow(<Auth authType="login" />);
     expect(toJson(tree)).toMatchSnapshot();
   });
 });

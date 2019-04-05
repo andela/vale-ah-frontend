@@ -1,11 +1,15 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100%;
   box-sizing: border-box;
+  font-family: $font-primary;
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: inherit;
   font-family: inherit;
 }

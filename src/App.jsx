@@ -8,10 +8,7 @@ import Routes from './routes/Routes';
  */
 const App = () => (
   <BrowserRouter>
-    <div>
-      <h1>Welcome to Naija Chop Chop</h1>
-      <Routes />
-    </div>
+    <Routes />
   </BrowserRouter>
 );
 
