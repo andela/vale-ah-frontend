@@ -1,0 +1,20 @@
+.social-button {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+
+  .logo {
+    font-size: 1.8em;
+    padding: 0 15px;
+  }
+
+  .text {
+    flex: 1;
+    text-align: left;
+  }
+
+  &:hover {
+    background-color: $color-black;
+  }
+}

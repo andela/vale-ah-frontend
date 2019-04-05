@@ -1,0 +1,48 @@
+input {
+  &.text-field {
+    display: block;
+    width: 100%;
+    font-family: $font-primary;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 44px;
+    color: $color-black;
+    padding-left: 15px;
+    border: 0 solid transparent;
+    outline: none;
+    background: $color-white;
+    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+  }
+}
+
+button {
+  outline: none;
+  line-height: 40px;
+  padding: 0 24px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+
+  &.button--green {
+    background: $color-green;
+    color: $color-white;
+  }
+
+  &.button--facebook {
+    background: $color-facebook;
+    color: $color-white;
+  }
+
+  &.button--google {
+    background: $color-google;
+    color: $color-white;
+  }
+
+  &.button--twitter {
+    background: $color-twitter;
+    color: $color-white;
+  }
+  border-radius: 2px;
+}
