@@ -1,6 +1,6 @@
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import recipeReducer, { initialState as recipeState } from './recipeReducer';
+import recipeReducer, { initialState as recipeState } from './recipe';
 
 configure({ adapter: new Adapter() });
 describe('recipe reducer', () => {
