@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const Dotenv = require('dotenv-webpack');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+require('dotenv').config();
 
 const {
   devServer,
@@ -27,7 +27,25 @@ const baseConfig = merge([
       publicPath: '/',
       filename: 'bundle.js',
     },
-    plugins: [new Dotenv({ silent: true })],
+    module: {
+      rules: [
+        {
+          test: /\.(ttf|eot|woff|woff2)$/,
+          use: {
+            loader: 'file-loader',
+            options: {
+              name: 'fonts/[name].[ext]',
+            },
+          },
+        },
+      ],
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
+      }),
+    ],
   },
   loadHtml(),
   loadJavascript({ include: path.join(__dirname, '../src') }),
@@ -47,6 +65,7 @@ const devConfig = merge([
 
 const prodConfig = merge([
   {
+    devtool: 'source-map',
     output: {
       filename: 'bundle.[chunkhash:8].js',
       publicPath: '/',
@@ -54,8 +73,10 @@ const prodConfig = merge([
     optimization: {
       minimizer: [
         new TerserPlugin({
+          sourceMap: true,
           terserOptions: {
             output: {
+              beautify: false,
               comments: false,
             },
           },
