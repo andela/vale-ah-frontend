@@ -5,6 +5,7 @@ body {
   height: 100%;
 
   background: rgb(173, 173, 173);
+  background: $color-darkgrey;
 }
 
 *,
@@ -16,11 +17,14 @@ body {
   padding: 0;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 a {
   color: initial;
   text-decoration: none;
+}
+
+.container {
+  background-color: rgb(255, 255, 255);
+  max-width: 95%;
+  height: 100%;
+  margin: auto;
 }
