@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu, Image, Button, Icon, Responsive } from 'semantic-ui-react';
 import { logoutUser } from '../../actions/auth/auth-dispatchers';
+import brand from '../../../public/images/brand.png';
 
-const brand =
-  'https://res.cloudinary.com/do01bfhpw/image/upload/v1554924447/brand.png';
 /**
  *@returns {JSX} Navbar component
  */

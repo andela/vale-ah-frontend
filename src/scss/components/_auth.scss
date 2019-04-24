@@ -1,7 +1,7 @@
 .auth {
   background-color: $color-lightgrey;
-  max-width: 375px;
-  padding: 24px;
+  max-width: 25rem;
+  padding: 1.5rem;
   text-align: center;
   width: 100%;
 
@@ -15,29 +15,29 @@
 
   .title {
     font-family: $font-primary;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: bold;
   }
 
   .text-field {
-    margin: 10px 0;
+    margin: 0.625rem 0;
   }
 
   fieldset {
     border: 0;
-    border-top: 1px solid $color-darkgreen;
+    border-top: 0.0625rem solid $color-darkgreen;
     padding: 0;
   }
 
   legend {
     color: $color-darkgreen;
-    font-size: 18px;
-    padding: 0 20px;
+    font-size: 1.125rem;
+    padding: 0 1.25rem;
   }
 
   p {
     color: $color-darkgreen;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .forgot-password {
@@ -47,11 +47,6 @@
   .action {
     cursor: pointer;
     font-weight: bold;
-  }
-
-  .button--green {
-    background: $color-green;
-    color: $color-white;
   }
 
   .auth-header {

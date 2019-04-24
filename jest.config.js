@@ -157,7 +157,11 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  transform: { '^.+\\.jsx?$': 'babel-jest' },
+  transform: {
+    '^.+\\.jsx?$': 'babel-jest',
+    '^[./a-zA-Z0-9$_-]+\\.(bmp|gif|jpg|jpeg|png|psd|svg|webp)$':
+      '<rootDir>/test/mediaFileTransformer.js',
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ['/node_modules/'],

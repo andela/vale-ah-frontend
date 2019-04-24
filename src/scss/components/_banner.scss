@@ -1,10 +1,10 @@
 .banner {
   align-items: center;
   background: linear-gradient($color-overlay, $color-overlay),
-    url("https://res.cloudinary.com/do01bfhpw/image/upload/v1554924453/egusi2.png");
+    url("../../../public/images/egusi2.png");
   background-size: cover;
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 3.75rem);
   justify-content: center;
   width: 100%;
 
@@ -20,7 +20,7 @@
   .main {
     color: $color-white;
     font-family: $font-secondary;
-    font-size: 100px;
+    font-size: 6.25rem;
     font-weight: normal;
     line-height: 1.1;
     margin: 0;
@@ -34,20 +34,20 @@
   .sub {
     color: $color-white;
     font-family: $font-primary;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 200;
-    letter-spacing: 2px;
-    line-height: 50px;
+    letter-spacing: 0.125rem;
+    line-height: 3.125rem;
     text-align: center;
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 48rem) {
     .main {
-      font-size: 70px;
+      font-size: 4.375rem;
     }
 
     .sub {
-      font-size: 18px;
+      font-size: 1.125rem;
     }
   }
 }
