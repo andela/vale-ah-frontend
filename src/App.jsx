@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { css } from 'glamor';
 import Routes from './routes/Routes';
 import store from './store/store';
 
@@ -31,13 +32,25 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-        <ToastContainer autoClose={1500} />
-      </Provider>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+    <ToastContainer
+      position="top-center"
+      newestOnTop={false}
+      bodyClassName={css({
+        fontFamily: 'Nunito',
+        fontSize: '13px',
+        textAlign: 'center',
+      })}
+      progressClassName={css({
+        height: '3px',
+      })}
+    />
+  </Provider>
     );
   }
 }
 
 export default App;
+

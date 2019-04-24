@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from '../pages/Home/Home';
+import CreateRecipe from '../pages/Recipe/CreateRecipes/CreateRecipe';
 
 /**
  * Routes Component
@@ -9,7 +10,7 @@ import Home from '../pages/Home/Home';
 const Routes = () => (
   <Switch>
     <Route path="/:authType(login|register)?" component={Home} exact />
-    <Route path="/recipes/create" render={() => <div>Create a Recipe</div>} />
+    <Route path="/recipes/create" component={CreateRecipe} exact />
     <Route component={Home} />
   </Switch>
 );

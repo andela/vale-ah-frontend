@@ -3,9 +3,11 @@
 @import "./base/typography";
 @import "./layout/forms";
 @import "../../node_modules/react-toastify/scss/main";
+@import "./components/intro.js";
 @import "components/banner";
 @import "components/navbar";
 @import "components/sidenav";
 @import "./components/auth";
 @import "./components/social-button";
 @import "./pages/home";
+@import "./pages/createRecipes";
