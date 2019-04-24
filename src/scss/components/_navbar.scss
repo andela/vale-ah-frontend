@@ -1,0 +1,33 @@
+.navbar {
+  background-color: $color-darkgreen;
+  line-height: 5rem;
+  width: 100%;
+
+  .navbar-brand {
+    font-size: 1.7rem;
+    margin: 0;
+    padding: 0;
+    line-height: 1.25rem;
+    font-family: $font-secondary;
+    color: $color-white !important;
+    letter-spacing: 0.3125rem;
+  }
+  .navbar-brand-highlight {
+    color: $color-yellow;
+  }
+  .navbar-action {
+    color: $color-white !important;
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 48rem) {
+    .navbar-brand {
+      font-size: 1.3rem;
+      letter-spacing: 0;
+    }
+
+    .navbar-humbugger {
+      color: $color-white;
+    }
+  }
+}

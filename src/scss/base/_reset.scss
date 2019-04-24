@@ -1,0 +1,21 @@
+html,
+body {
+  box-sizing: border-box;
+  font-family: $font-primary;
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  font-family: inherit;
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}

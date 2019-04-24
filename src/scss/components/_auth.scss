@@ -1,0 +1,56 @@
+.auth {
+  background-color: $color-lightgrey;
+  max-width: 25rem;
+  padding: 1.5rem;
+  text-align: center;
+  width: 100%;
+
+  .error {
+    color: $color-red;
+    font-size: small;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .title {
+    font-family: $font-primary;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .text-field {
+    margin: 0.625rem 0;
+  }
+
+  fieldset {
+    border: 0;
+    border-top: 0.0625rem solid $color-darkgreen;
+    padding: 0;
+  }
+
+  legend {
+    color: $color-darkgreen;
+    font-size: 1.125rem;
+    padding: 0 1.25rem;
+  }
+
+  p {
+    color: $color-darkgreen;
+    font-size: 0.875rem;
+  }
+
+  .forgot-password {
+    text-align: left;
+  }
+
+  .action {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .auth-header {
+    display: flex;
+    flex-direction: column;
+  }
+}

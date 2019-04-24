@@ -1,0 +1,53 @@
+.banner {
+  align-items: center;
+  background: linear-gradient($color-overlay, $color-overlay),
+    url("../../../public/images/egusi2.png");
+  background-size: cover;
+  display: flex;
+  height: calc(100vh - 3.75rem);
+  justify-content: center;
+  width: 100%;
+
+  .link {
+    color: $color-white;
+    background-color: $color-green;
+  }
+
+  .info-container {
+    text-align-last: center;
+  }
+
+  .main {
+    color: $color-white;
+    font-family: $font-secondary;
+    font-size: 6.25rem;
+    font-weight: normal;
+    line-height: 1.1;
+    margin: 0;
+    text-align: center;
+  }
+
+  .brand-highlight {
+    color: $color-yellow;
+  }
+
+  .sub {
+    color: $color-white;
+    font-family: $font-primary;
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 0.125rem;
+    line-height: 3.125rem;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 48rem) {
+    .main {
+      font-size: 4.375rem;
+    }
+
+    .sub {
+      font-size: 1.125rem;
+    }
+  }
+}
