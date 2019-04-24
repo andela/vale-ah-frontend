@@ -1,11 +1,15 @@
 .social {
   margin: 0.3125rem 0;
-  display: flex;
-  flex-direction: column;
   .social-button {
+    width: 100%;
+
     &:hover {
       background-color: $color-social-hover;
       color: $color-white;
+    }
+    .link {
+      color: $color-white;
+      width: 100%;
     }
   }
 

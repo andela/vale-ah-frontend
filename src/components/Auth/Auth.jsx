@@ -9,6 +9,7 @@ import TextInput from '../TextInput/TextInput';
 import { loginUser, registerUser } from '../../actions/auth/auth-dispatchers';
 import { appRef } from '../../utils/refs';
 import { checkAuth } from '../../utils/helpers';
+import { socialLogin } from '../../actions/auth/social-actions';
 
 /**
  * Auth component
@@ -18,6 +19,9 @@ export class AuthComponent extends Component {
   static propTypes = {
     register: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
+    history: PropTypes.shape({}).isRequired,
+    social: PropTypes.func.isRequired,
+    location: PropTypes.shape({}).isRequired,
     auth: PropTypes.shape({
       errors: PropTypes.shape({
         username: PropTypes.array,
@@ -46,6 +50,12 @@ export class AuthComponent extends Component {
    * @returns {undefined}
    */
   componentDidMount() {
+    const { history, location, social } = this.props;
+    const urlParams = new URLSearchParams(location.search);
+    const token = urlParams.get('token');
+    if (token !== null) {
+      social(token, history);
+    }
     checkAuth();
   }
 
@@ -205,7 +215,7 @@ export const RoutedAuth = withRouter(AuthComponent);
 
 const Auth = connect(
   mapStateToProps,
-  { login: loginUser, register: registerUser }
+  { login: loginUser, register: registerUser, social: socialLogin }
 )(RoutedAuth);
 
 export default Auth;

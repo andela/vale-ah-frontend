@@ -25,9 +25,15 @@ export const normalizeErrors = error => {
 export const checkAuth = async () => {
   try {
     const token = localStorage.getItem('token');
+
+    if (token == null) {
+      return;
+    }
+
     const res = await axios.get(`${process.env.API_BASE_URL}/user`, {
       headers: { authorization: token },
     });
+
     store.dispatch(action.authSuccessAction({ user: res.data.user }));
   } catch (error) {
     store.dispatch(action.clearError());

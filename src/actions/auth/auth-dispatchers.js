@@ -14,7 +14,6 @@ const baseUrl = `${process.env.API_BASE_URL}/users`;
  */
 export const loginUser = (data = {}) => async dispatch => {
   dispatch(actions.authRequestAction());
-
   try {
     const res = await axios.post(`${baseUrl}/login`, data);
     const { user } = res.data;
