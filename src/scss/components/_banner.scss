@@ -1,0 +1,53 @@
+.banner {
+  align-items: center;
+  background: linear-gradient($color-overlay, $color-overlay),
+    url("https://res.cloudinary.com/do01bfhpw/image/upload/v1554924453/egusi2.png");
+  background-size: cover;
+  display: flex;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  width: 100%;
+
+  .link {
+    color: $color-white;
+    background-color: $color-green;
+  }
+
+  .info-container {
+    text-align-last: center;
+  }
+
+  .main {
+    color: $color-white;
+    font-family: $font-secondary;
+    font-size: 100px;
+    font-weight: normal;
+    line-height: 1.1;
+    margin: 0;
+    text-align: center;
+  }
+
+  .brand-highlight {
+    color: $color-yellow;
+  }
+
+  .sub {
+    color: $color-white;
+    font-family: $font-primary;
+    font-size: 24px;
+    font-weight: 200;
+    letter-spacing: 2px;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .main {
+      font-size: 70px;
+    }
+
+    .sub {
+      font-size: 18px;
+    }
+  }
+}

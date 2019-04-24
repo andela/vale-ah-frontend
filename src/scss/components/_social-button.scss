@@ -1,0 +1,26 @@
+.social {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+  .social-button {
+    &:hover {
+      background-color: $color-social-hover;
+      color: $color-white;
+    }
+  }
+
+  .button--facebook {
+    background-color: $color-facebook;
+    color: $color-white;
+  }
+
+  .button--google {
+    background-color: $color-google;
+    color: $color-white;
+  }
+
+  .button--twitter {
+    background-color: $color-twitter;
+    color: $color-white;
+  }
+}

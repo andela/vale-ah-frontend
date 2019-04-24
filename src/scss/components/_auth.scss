@@ -1,0 +1,61 @@
+.auth {
+  background-color: $color-lightgrey;
+  max-width: 375px;
+  padding: 24px;
+  text-align: center;
+  width: 100%;
+
+  .error {
+    color: $color-red;
+    font-size: small;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .title {
+    font-family: $font-primary;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .text-field {
+    margin: 10px 0;
+  }
+
+  fieldset {
+    border: 0;
+    border-top: 1px solid $color-darkgreen;
+    padding: 0;
+  }
+
+  legend {
+    color: $color-darkgreen;
+    font-size: 18px;
+    padding: 0 20px;
+  }
+
+  p {
+    color: $color-darkgreen;
+    font-size: 14px;
+  }
+
+  .forgot-password {
+    text-align: left;
+  }
+
+  .action {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .button--green {
+    background: $color-green;
+    color: $color-white;
+  }
+
+  .auth-header {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -73,7 +73,7 @@ exports.extractStyles = ({ include } = {}) => ({
       {
         test: /\.css$/,
         include,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,

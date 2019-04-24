@@ -2,17 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import faker from 'faker';
 import mockRouterOptions from '../../../test/__mocks__/mockRouter';
 import Auth from '../Auth/Auth';
-import Login from './Login';
 import { mockStore } from '../../../test/setupTests';
+
+import Register from './Register';
 
 const initialState = {
   auth: {
     response: {
       user: {
-        token: faker.random.uuid(),
+        token: 'rueueuue',
       },
     },
     isLoading: false,
@@ -25,25 +25,26 @@ const store = mockStore(initialState);
 const props = {
   errors: {},
   onClose: jest.fn(),
-  success: false,
+  signInUser: jest.fn(),
+  registerUser: Promise.resolve({}),
 };
 const wrapper = mount(
   <Provider store={store}>
     <Router>
-      <Login {...props} />
+      <Register {...props} />
     </Router>
   </Provider>,
   mockRouterOptions
 );
 
-describe('<Login /> rendering', () => {
+describe('<Register /> rendering', () => {
   it('should render one <Auth>', () => {
     expect(wrapper.find(Auth).exists()).toBe(true);
   });
 
-  it('should redirect on login success>', () => {
-    wrapper.setProps({ children: <Login {...props} success /> });
+  it('should redirect on register success>', () => {
+    wrapper.setProps({ children: <Register {...props} success /> });
     expect(wrapper.find('Redirect')).toHaveLength(1);
-    expect(wrapper.find(Auth)).toHaveLength(0);
+    expect(wrapper.find(Auth).exists()).toBe(false);
   });
 });
