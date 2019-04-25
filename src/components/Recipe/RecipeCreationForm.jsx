@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RecipeStep from './RecipeStep';
 import IngredientList from './IngredientList';
 import {
   generateKey,
   openFilePicker,
-  fileInputChangeHandler,
+  preUploadAggregator,
+  handleMessages,
 } from '../../utils/helpers';
 
 /**
@@ -34,34 +36,54 @@ class RecipeCreationForm extends Component {
   /**
    * @returns {undefined}
    */
-  componentDidMount() {
-    const filePicker = this.filePickerRef.current;
-    filePicker.addEventListener('change', e =>
-      fileInputChangeHandler(e, {
-        typeFilter: ['video'],
-        uploadType: 'recipe_video',
-      })
-    );
+  componentDidUpdate() {
+    const { upload } = this.props;
 
-    window.addEventListener(
-      'video_upload_complete',
-      ({
-        detail: {
-          mediaInfo: [{ url }],
+    if (upload.success) {
+      const {
+        upload: {
+          response: { mediaInfo, stepIndex, uploadType },
         },
-      }) => {
-        this.setState({ videoList: [url] });
-      }
-    );
+      } = this.props;
 
-    window.addEventListener('step_upload_complete', ({ detail }) => {
-      const { syncStepProp } = this;
-      detail.mediaInfo.forEach(({ resType, url }) => {
-        if (resType === 'image') syncStepProp(url, detail.stepIndex, 'images');
-        if (resType === 'video') syncStepProp(url, detail.stepIndex, 'videos');
-      });
-    });
+      if (uploadType === 'recipe_video') {
+        const [{ url }] = mediaInfo;
+        this.setRecipeVideo(url);
+      }
+
+      if (uploadType === 'recipe_step') {
+        this.updateStepMedia(mediaInfo, stepIndex);
+      }
+    }
   }
+
+  /**
+   * @param {string} url videoUrl
+   * @returns {undefined}
+   */
+  setRecipeVideo = url => {
+    const { resetUploaderState } = this.props;
+    const { videoList } = this.state;
+    if (!videoList.length) {
+      this.setState({ videoList: [url] });
+      resetUploaderState();
+    }
+  };
+
+  /**
+   * @param {object} mediaInfo
+   * @param {number} stepIndex
+   * @returns {undefined}
+   */
+  updateStepMedia = (mediaInfo, stepIndex) => {
+    const { resetUploaderState } = this.props;
+
+    mediaInfo.forEach(({ resType, url }) => {
+      if (resType === 'image') this.syncStepProp(url, stepIndex, 'images');
+      if (resType === 'video') this.syncStepProp(url, stepIndex, 'videos');
+    });
+    resetUploaderState();
+  };
 
   /**
    * @param {number} stepInsertionIndex
@@ -148,6 +170,44 @@ class RecipeCreationForm extends Component {
   };
 
   /**
+   * @param {Event} e change event
+   * @returns {undefined}
+   */
+  handleFileChange = e => {
+    const { uploadMedia } = this.props;
+    const { files } = e.target;
+
+    const options = {
+      typeFilter: ['video'],
+      uploadType: 'recipe_video',
+    };
+
+    const { uploadPayload, errors } = preUploadAggregator(files, options);
+
+    if (errors.length) {
+      handleMessages(errors, 'error');
+    }
+
+    uploadMedia(uploadPayload);
+  };
+
+  /**
+   *
+   * @param {index} stepRemovalIndex
+   * @returns {object} filtered ingredients
+   * @memberof RecipeCreationForm
+   */
+  handleRemoval = stepRemovalIndex => {
+    const { steps } = this.state;
+    const newSteps = [...steps];
+
+    if (newSteps.length > 1) {
+      newSteps.splice(stepRemovalIndex, 1);
+      this.setState({ steps: newSteps });
+    }
+  };
+
+  /**
    * @returns {JSX.Element} RecipeCreationForm
    */
   render() {
@@ -229,6 +289,7 @@ class RecipeCreationForm extends Component {
                         addState={stepAddHover}
                         images={images}
                         addNewStep={() => this.addNewStep(index)}
+                        handleRemoval={() => this.handleRemoval(index)}
                         syncStepProp={this.syncStepProp}
                         description={description}
                       />
@@ -242,18 +303,28 @@ class RecipeCreationForm extends Component {
             </div>
             <div>
               <div className="video-section">
-                <p className="col-title">Videos</p>
+                <div className="col-title">
+                  Videos{' '}
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={this.openFilePicker}
+                  >
+                    Add Full Video <i className="fas fa-video" />
+                    <input
+                      type="file"
+                      onChange={this.handleFileChange}
+                      ref={this.filePickerRef}
+                      hidden
+                    />
+                  </button>
+                </div>
                 <div className="video-content">
                   {steps.map(({ videos, key }, index) =>
                     videos.length ? (
                       <div key={key} className="video-widget">
                         <p className="step">Step {index + 1}</p>
-                        <video
-                          width="320"
-                          height="240"
-                          controls
-                          src={videos[0]}
-                        >
+                        <video controls src={videos[0]} className="step-video">
                           <track kind="captions" />
                         </video>
                       </div>
@@ -262,13 +333,7 @@ class RecipeCreationForm extends Component {
                   {videoList.length > 0 && (
                     <div className="video-widget">
                       <p className="step">Full video</p>
-                      <video
-                        className="full-video"
-                        width="400"
-                        height="240"
-                        controls
-                        src={videoList[0]}
-                      >
+                      <video className="full-video" controls src={videoList[0]}>
                         <track kind="captions" />
                       </video>
                     </div>
@@ -277,22 +342,15 @@ class RecipeCreationForm extends Component {
               </div>
             </div>
           </div>
-
-          <button type="submit" className="btn-primary">
-            {recipeCreation.pending ? (
-              <div className="spinner" />
-            ) : (
-              'Submit Recipe'
-            )}
-          </button>
-          <button
-            type="button"
-            className="btn-secondary"
-            onClick={this.openFilePicker}
-          >
-            Add Full Video <i className="fas fa-video" />
-            <input type="file" ref={this.filePickerRef} hidden />
-          </button>
+          <div>
+            <button type="submit" className="btn-primary">
+              {recipeCreation.pending ? (
+                <div className="spinner" />
+              ) : (
+                'Submit Recipe'
+              )}
+            </button>
+          </div>
         </div>
         {recipeCreation.pending && (
           <div className="loading-overlay">
@@ -305,13 +363,33 @@ class RecipeCreationForm extends Component {
 }
 
 RecipeCreationForm.propTypes = {
+  handleCreation: PropTypes.func.isRequired,
+  resetUploaderState: PropTypes.func.isRequired,
+  uploadMedia: PropTypes.func.isRequired,
   recipeCreation: PropTypes.shape({
     penidng: PropTypes.bool,
     created: PropTypes.bool,
     recipe: PropTypes.shape(),
     errors: PropTypes.shape(),
   }).isRequired,
-  handleCreation: PropTypes.func.isRequired,
+  upload: PropTypes.shape({
+    response: PropTypes.shape({
+      mediaInfo: PropTypes.arrayOf(PropTypes.object),
+      stepIndex: PropTypes.number,
+      uploadType: PropTypes.string,
+    }),
+    isLoading: PropTypes.bool,
+    success: PropTypes.bool,
+  }).isRequired,
 };
 
-export default RecipeCreationForm;
+/**
+ * map state to component props
+ * @param {State} state redux state
+ * @returns {object} state to prop map
+ */
+const mapStateToProps = state => ({
+  upload: state.upload,
+});
+
+export default connect(mapStateToProps)(RecipeCreationForm);

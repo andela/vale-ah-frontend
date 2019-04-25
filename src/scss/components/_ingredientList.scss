@@ -1,0 +1,104 @@
+.ingredient-item {
+  background: #fbfbfb;
+  border: 1px solid #d8d8d8;
+  display: flex;
+  hyphens: auto;
+  justify-content: space-between;
+  margin: 0 0 5px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  padding: 8px 10px;
+  word-break: break-word;
+  font-weight: 400;
+  word-wrap: break-word;
+  border-radius: 3px;
+  font-size: 1.4rem;
+  transition: transform 300ms ease-in-out;
+
+  &:last-child {
+    margin: 0 0 40px;
+  }
+
+  &:hover {
+    font-weight: 600;
+    transform: translateX(5px);
+    visibility: visible;
+  }
+}
+
+.add-icon,
+.remove-icon {
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0 10px;
+  padding: 5px;
+}
+
+.remove-icon {
+  align-self: flex-start;
+}
+
+.flex {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.emp {
+  display: block;
+  width: 25px;
+}
+
+.no-ing {
+  display: block;
+  font-style: italic;
+  font-weight: 600;
+  margin: 5px 0;
+}
+
+.ingredient-section {
+  width: 100%;
+}
+
+.col-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 40px 0;
+}
+
+.ingredient-lists {
+  list-style: none;
+  margin: 0 0 15px 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.text-field {
+  border: none;
+  border-bottom-right-radius: 2px;
+  border-bottom: 2px solid #dbdbdb;
+  border-right: 2px solid #dbdbdb;
+  caret-color: #f8c418;
+  display: inline-block;
+  font-family: "Nunito", sans-serif;
+}
+
+.err-msg {
+  color: red;
+  font-size: 11px;
+  display: block;
+  position: absolute;
+  bottom: -17px;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 1000px) {
+  .input-block {
+    position: relative;
+    flex-basis: 100%;
+    margin: 24px 0;
+  }
+}

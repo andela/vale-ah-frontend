@@ -75,7 +75,7 @@ const IngredientList = ({
   return (
     <div className="ingredient-section">
       <p className="col-title">Ingredients</p>
-      <div className="">
+      <div>
         <ul className="ingredient-lists">{ingredientList}</ul>
 
         <div className="input-block">

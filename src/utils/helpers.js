@@ -1,9 +1,7 @@
 import axios from 'axios';
 import shortid from 'shortid';
-import { toast } from 'react-toastify';
 import store from '../store/store';
 import * as action from '../actions/auth/auth-actions';
-import { appRef } from './refs';
 
 /**
  * Normalizes errors from the backend
@@ -40,11 +38,10 @@ export const checkAuth = async () => {
  * @param {Array} messages
  * @param {string} type error or success
  */
-export const handleMessages = (messages, type) => {
-  if (messages && appRef.current)
-    appRef.current.dispatchEvent(
+export const handleMessages = (messages, type = 'success') => {
+  if (messages)
+    window.dispatchEvent(
       new CustomEvent('app-toast', {
-        bubbles: true,
         detail: {
           messages,
           type,
@@ -68,62 +65,6 @@ export const openFilePicker = (e, filePickerRef) => {
   if (e.keyCode && e.keyCode !== 13) return;
 
   filePickerRef.current.click();
-};
-
-/**
- *
- * @param {Object} params upload params
- * @returns {undefined}
- */
-const cloudUpload = ({ mediaFiles, stepIndex, uploadType }) => {
-  const uploads = mediaFiles.map(file => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', process.env.UPLOAD_PRESET);
-    formData.append('timestamp', Date.now());
-
-    return axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/upload`,
-      formData
-    );
-  });
-
-  axios
-    .all(uploads)
-    .then(res => {
-      const mediaInfo = res.map(uploadResponse => ({
-        resType: uploadResponse.data.resource_type,
-        url: uploadResponse.data.url,
-      }));
-
-      if (uploadType === 'recipe_step') {
-        window.dispatchEvent(
-          new CustomEvent('step_upload_complete', {
-            bubbles: true,
-            detail: {
-              mediaInfo,
-              stepIndex,
-            },
-          })
-        );
-      }
-
-      if (uploadType === 'recipe_video') {
-        window.dispatchEvent(
-          new CustomEvent('video_upload_complete', {
-            bubbles: true,
-            detail: {
-              mediaInfo,
-            },
-          })
-        );
-      }
-
-      toast.success('Media files uploaded successfully');
-    })
-    .catch(() =>
-      toast.error('An error occured while attaching uploaded media files')
-    );
 };
 
 /**
@@ -151,33 +92,35 @@ export const validateAuthInput = data => {
 };
 
 /**
- * @param {Event} e change event
- * @param {Event} e.target change eventtarget
- * @param {Object} options handler options
- * @returns {undefined}
+ * @param {ArrayLike} files change event
+ * @param {Object} options  options
+ * @returns {object} object of uploadable media files, errors
  */
-export const fileInputChangeHandler = (
-  { target },
-  { typeFilter, stepIndex, uploadType }
-) => {
-  if (target.files.length) toast.info('Processing uploads!');
+export const preUploadAggregator = (files, options) => {
+  const { typeFilter, stepIndex, uploadType } = options;
 
-  const mediaFiles = Array.from(target.files).reduce(
-    (validFiles, currentFile) => {
-      if (typeFilter.includes(currentFile.type.split('/')[0])) {
-        return [...validFiles, currentFile];
-      }
+  const resultShape = {
+    uploadPayload: { mediaFiles: [], stepIndex, uploadType },
+    errors: [],
+  };
 
-      toast.error(
-        ` "${
-          currentFile.name
-        }" - has an unsupported file format and will be discarded.`
+  const result = Array.from(files).reduce((currentResult, currentFile) => {
+    const { name, type } = currentFile;
+    const {
+      uploadPayload: { mediaFiles },
+      errors,
+    } = currentResult;
+
+    if (typeFilter.includes(type.split('/')[0])) {
+      mediaFiles.push(currentFile);
+      currentResult.uploadPayload.mediaFiles = mediaFiles;
+    } else
+      errors.push(
+        `"${name}" - has an unsupported file format and will be discarded.`
       );
 
-      return validFiles;
-    },
-    []
-  );
+    return currentResult;
+  }, resultShape);
 
-  if (mediaFiles.length) cloudUpload({ mediaFiles, stepIndex, uploadType });
+  return result;
 };

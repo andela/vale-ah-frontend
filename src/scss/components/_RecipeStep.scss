@@ -1,0 +1,72 @@
+.step-description {
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  & .text-field {
+    resize: none;
+  }
+}
+
+.step-number {
+  color: #d3d3d3;
+  font-weight: bold;
+  position: absolute;
+  top: -30px;
+  font-size: 1.3rem;
+  z-index: auto;
+}
+
+.step-icon-holder {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+.icon-main {
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  padding: 5px;
+  align-self: flex-end;
+}
+
+.add-step {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px auto 0px auto;
+}
+
+.add-icon:hover {
+  background: #5f5f5f;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.add-step-input-line {
+  border-bottom: 2px dashed #d3d3d3;
+  display: inline-block;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+.add-step-input {
+  border: 2px dashed #d3d3d3;
+  display: inline-block;
+  font-family: "Nunito", sans-serif;
+  outline: none;
+  text-align: center;
+  width: 100%;
+  font-size: 1.35rem;
+}
+
+.image-widget {
+  text-align: center;
+  margin-bottom: 50px;
+}

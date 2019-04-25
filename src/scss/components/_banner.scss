@@ -1,7 +1,6 @@
 .banner {
   align-items: center;
-  background: linear-gradient($color-overlay, $color-overlay),
-    url("../../../public/images/egusi2.png");
+  background: linear-gradient($color-overlay, $color-overlay);
   background-size: cover;
   display: flex;
   height: calc(100vh - 3.75rem);

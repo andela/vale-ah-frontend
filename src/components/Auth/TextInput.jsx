@@ -20,7 +20,7 @@ const TextInput = props => {
   return (
     <Fragment>
       <input
-        className="text-field"
+        className="txt-field"
         type={type}
         name={name}
         placeholder={placeholder}

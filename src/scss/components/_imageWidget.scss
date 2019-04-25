@@ -1,0 +1,25 @@
+.image-selector {
+  display: flex;
+  margin: -18px 0 30px 0;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.img-holder {
+  position: relative;
+}
+
+.recipe-image {
+  align-self: center;
+  margin: auto;
+  height: 110px;
+  width: 140px;
+  background: transparent;
+  border-radius: 3px;
+}
+
+.more-images {
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+  width: 140px;
+}

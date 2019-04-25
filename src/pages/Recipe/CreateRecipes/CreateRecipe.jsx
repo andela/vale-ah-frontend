@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Steps } from 'intro.js-react';
 import { Redirect } from 'react-router-dom';
-import recipeCreator from '../../../actions/recipe/create-recipes';
+import { create } from '../../../actions/recipe/recipe-dispatchers';
 import RecipeCreationForm from '../../../components/Recipe/RecipeCreationForm';
 import { introSteps } from '../../../utils/recipe-intro';
+import {
+  cloudUpload,
+  resetUploader,
+} from '../../../actions/upload/upload-dispatchers';
 
 /**
  * Create new Recipe
@@ -62,18 +66,12 @@ class CreateRecipe extends Component {
   render() {
     const {
       exitIntro,
-      props: {
-        recipeCreation,
-        recipeCreation: {
-          created,
-          recipe: { slug },
-        },
-      },
+      props: { uploadMedia, recipeCreation, resetUploaderState },
       state: { intro },
     } = this;
 
-    if (created) {
-      return <Redirect to={`/recipes/${slug}`} />;
+    if (recipeCreation.created) {
+      return <Redirect to={`/recipes/${recipeCreation.recipe.slug}`} />;
     }
 
     return (
@@ -87,6 +85,8 @@ class CreateRecipe extends Component {
         <RecipeCreationForm
           recipeCreation={recipeCreation}
           handleCreation={this.handleCreation}
+          resetUploaderState={resetUploaderState}
+          uploadMedia={uploadMedia}
         />
       </Fragment>
     );
@@ -96,6 +96,8 @@ class CreateRecipe extends Component {
 CreateRecipe.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   createNewRecipe: PropTypes.func.isRequired,
+  resetUploaderState: PropTypes.func.isRequired,
+  uploadMedia: PropTypes.func.isRequired,
   recipeCreation: PropTypes.shape({
     isCreating: PropTypes.bool,
     created: PropTypes.bool,
@@ -113,7 +115,13 @@ const mapStateToProps = state => ({
   recipeCreation: state.recipes.createRecipe,
 });
 
+const mapDispatchToProps = {
+  createNewRecipe: create,
+  uploadMedia: cloudUpload,
+  resetUploaderState: resetUploader,
+};
+
 export default connect(
   mapStateToProps,
-  { createNewRecipe: recipeCreator }
+  mapDispatchToProps
 )(CreateRecipe);

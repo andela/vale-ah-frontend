@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import AuthHeader from './AuthHeader';
 import TextInput from './TextInput';
 import { loginUser, registerUser } from '../../actions/auth/auth-dispatchers';
-import { appRef } from '../../utils/refs';
 import { checkAuth } from '../../utils/helpers';
 
 /**
@@ -142,7 +141,7 @@ export class AuthComponent extends Component {
     ];
     const { user } = this.state;
     return (
-      <div className="auth" ref={appRef}>
+      <div className="auth">
         <form onSubmit={this.handleSubmit} id="authForm">
           <AuthHeader authType={authType} />
           <section>

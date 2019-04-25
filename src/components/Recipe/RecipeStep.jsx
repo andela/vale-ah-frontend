@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { fileInputChangeHandler, openFilePicker } from '../../utils/helpers';
+import { openFilePicker } from '../../utils/helpers';
 
 import ImageWidget from './ImageWidget';
 
@@ -15,21 +15,21 @@ class RecipeStep extends Component {
 
   filePickerRef = React.createRef();
 
-  /**
-   * @returns {undefined}
-   */
-  componentDidMount() {
-    const { index } = this.props;
-    const filePicker = this.filePickerRef.current;
+  // /**
+  //  * @returns {undefined}
+  //  */
+  // componentDidMount() {
+  //   const { index } = this.props;
+  //   const filePicker = this.filePickerRef.current;
 
-    filePicker.addEventListener('change', e =>
-      fileInputChangeHandler(e, {
-        stepIndex: index,
-        typeFilter: ['image', 'video'],
-        uploadType: 'recipe_step',
-      })
-    );
-  }
+  //   filePicker.addEventListener('change', e =>
+  //     fileInputChangeHandler(e, {
+  //       stepIndex: index,
+  //       typeFilter: ['image', 'video'],
+  //       uploadType: 'recipe_step',
+  //     })
+  //   );
+  // }
 
   /**
    * @param {Event} e
@@ -81,7 +81,7 @@ class RecipeStep extends Component {
    */
   render() {
     const {
-      props: { description, images, stepNumber },
+      props: { description, images, stepNumber, handleRemoval },
       state: { addHover },
     } = this;
     return (
@@ -104,6 +104,14 @@ class RecipeStep extends Component {
                 title="add photos/videos"
                 onClick={this.openFilePicker}
                 onKeyDown={this.openFilePicker}
+                role="button"
+                tabIndex={0}
+              />
+              <i
+                className="fas fa-minus icon-main"
+                title="add photos/videos"
+                onClick={handleRemoval}
+                onKeyDown={handleRemoval}
                 role="button"
                 tabIndex={0}
               />
@@ -140,6 +148,7 @@ RecipeStep.propTypes = {
   stepNumber: PropTypes.number.isRequired,
   syncStepProp: PropTypes.func.isRequired,
   description: PropTypes.string.isRequired,
+  handleRemoval: PropTypes.func.isRequired,
 };
 
 export default RecipeStep;
