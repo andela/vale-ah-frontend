@@ -61,7 +61,7 @@ exports.loadStyles = ({ include } = {}) => ({
       {
         test: /\.scss$/,
         include,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'fast-sass-loader'],
       },
     ],
   },
@@ -73,7 +73,7 @@ exports.extractStyles = ({ include } = {}) => ({
       {
         test: /\.css$/,
         include,
-        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.scss$/,
@@ -97,7 +97,7 @@ exports.extractStyles = ({ include } = {}) => ({
               ],
             },
           },
-          'sass-loader',
+          'fast-sass-loader',
         ],
       },
     ],

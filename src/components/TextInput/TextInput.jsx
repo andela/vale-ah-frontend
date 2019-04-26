@@ -16,11 +16,12 @@ const TextInput = props => {
     required,
     value,
     errors,
+    classNames,
   } = props;
   return (
     <Fragment>
       <input
-        className="txt-field"
+        className={classNames}
         type={type}
         name={name}
         placeholder={placeholder}
@@ -44,6 +45,7 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  classNames: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   errorExists: PropTypes.func.isRequired,

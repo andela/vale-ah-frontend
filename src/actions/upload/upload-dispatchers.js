@@ -11,6 +11,8 @@ export const cloudUpload = payload => dispatch => {
   const { mediaFiles, stepIndex, uploadType } = payload;
 
   handleMessages(['Uploading media files']);
+  dispatch(actions.mediaUploadRequest());
+
   const uploads = mediaFiles.map(file => {
     const formData = new FormData();
     formData.append('file', file);
@@ -30,6 +32,8 @@ export const cloudUpload = payload => dispatch => {
         resType: uploadResponse.data.resource_type,
         url: uploadResponse.data.url,
       }));
+
+      dispatch(actions.mediaUploadStateReset());
 
       if (uploadType === 'recipe_step') {
         dispatch(

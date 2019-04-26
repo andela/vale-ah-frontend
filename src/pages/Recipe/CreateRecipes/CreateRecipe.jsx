@@ -66,7 +66,7 @@ class CreateRecipe extends Component {
   render() {
     const {
       exitIntro,
-      props: { uploadMedia, recipeCreation, resetUploaderState },
+      props: { uploadMedia, resetUploaderState, recipeCreation },
       state: { intro },
     } = this;
 
@@ -85,8 +85,8 @@ class CreateRecipe extends Component {
         <RecipeCreationForm
           recipeCreation={recipeCreation}
           handleCreation={this.handleCreation}
-          resetUploaderState={resetUploaderState}
           uploadMedia={uploadMedia}
+          resetUploaderState={resetUploaderState}
         />
       </Fragment>
     );
@@ -96,8 +96,8 @@ class CreateRecipe extends Component {
 CreateRecipe.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   createNewRecipe: PropTypes.func.isRequired,
-  resetUploaderState: PropTypes.func.isRequired,
   uploadMedia: PropTypes.func.isRequired,
+  resetUploaderState: PropTypes.func.isRequired,
   recipeCreation: PropTypes.shape({
     isCreating: PropTypes.bool,
     created: PropTypes.bool,

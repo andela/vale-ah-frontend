@@ -5,8 +5,9 @@ import { Link, withRouter } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import AuthHeader from './AuthHeader';
-import TextInput from './TextInput';
+import TextInput from '../TextInput/TextInput';
 import { loginUser, registerUser } from '../../actions/auth/auth-dispatchers';
+import { appRef } from '../../utils/refs';
 import { checkAuth } from '../../utils/helpers';
 
 /**
@@ -141,7 +142,7 @@ export class AuthComponent extends Component {
     ];
     const { user } = this.state;
     return (
-      <div className="auth">
+      <div className="auth" ref={appRef}>
         <form onSubmit={this.handleSubmit} id="authForm">
           <AuthHeader authType={authType} />
           <section>

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { openFilePicker } from '../../utils/helpers';
-
 import ImageWidget from './ImageWidget';
 
 /**
@@ -11,25 +10,20 @@ import ImageWidget from './ImageWidget';
 class RecipeStep extends Component {
   state = { addHover: false };
 
-  stepDescriptionRef = React.createRef();
-
   filePickerRef = React.createRef();
 
-  // /**
-  //  * @returns {undefined}
-  //  */
-  // componentDidMount() {
-  //   const { index } = this.props;
-  //   const filePicker = this.filePickerRef.current;
+  /**
+   * @returns {object} media upload options
+   */
+  get uploadOptions() {
+    const { index } = this.props;
 
-  //   filePicker.addEventListener('change', e =>
-  //     fileInputChangeHandler(e, {
-  //       stepIndex: index,
-  //       typeFilter: ['image', 'video'],
-  //       uploadType: 'recipe_step',
-  //     })
-  //   );
-  // }
+    return {
+      stepIndex: index,
+      typeFilter: ['image', 'video'],
+      uploadType: 'recipe_step',
+    };
+  }
 
   /**
    * @param {Event} e
@@ -57,12 +51,9 @@ class RecipeStep extends Component {
    * @returns {undefined}
    */
   spawnStep = e => {
-    const { addNewStep } = this.props;
-    if (
-      this.stepDescriptionRef.current.value.trim() === '' ||
-      (e.keyCode && e.keyCode !== 13)
-    )
-      return;
+    const { addNewStep, description } = this.props;
+
+    if (description.trim() === '' || (e.keyCode && e.keyCode !== 13)) return;
 
     addNewStep();
   };
@@ -77,22 +68,39 @@ class RecipeStep extends Component {
   };
 
   /**
+   * open file picker
+   * @param {Event} e
+   * @returns {undefined}
+   */
+  filePickerOnchange = e => {
+    const { handleSelectedFiles } = this.props;
+
+    handleSelectedFiles(e, this.uploadOptions);
+  };
+
+  /**
    * @returns {JSX.Element} Recipe step component
    */
   render() {
     const {
-      props: { description, images, stepNumber, handleRemoval },
+      props: { description, images, stepNumber, removeStep },
       state: { addHover },
     } = this;
+
     return (
       <Fragment>
         <div className="ingredient-section">
-          <input type="file" ref={this.filePickerRef} multiple hidden />
+          <input
+            type="file"
+            ref={this.filePickerRef}
+            onChange={this.filePickerOnchange}
+            multiple
+            hidden
+          />
           <div className="step-description">
             <small className="step-number">Step {stepNumber}</small>
             <textarea
               rows={3}
-              ref={this.stepDescriptionRef}
               className="text-field text-field--large description-field"
               placeholder="Add a new preparation step"
               onChange={this.handleDescriptionChange}
@@ -110,8 +118,8 @@ class RecipeStep extends Component {
               <i
                 className="fas fa-minus icon-main"
                 title="add photos/videos"
-                onClick={handleRemoval}
-                onKeyDown={handleRemoval}
+                onClick={removeStep}
+                onKeyDown={removeStep}
                 role="button"
                 tabIndex={0}
               />
@@ -148,7 +156,8 @@ RecipeStep.propTypes = {
   stepNumber: PropTypes.number.isRequired,
   syncStepProp: PropTypes.func.isRequired,
   description: PropTypes.string.isRequired,
-  handleRemoval: PropTypes.func.isRequired,
+  removeStep: PropTypes.func.isRequired,
+  handleSelectedFiles: PropTypes.func.isRequired,
 };
 
 export default RecipeStep;

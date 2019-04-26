@@ -21,7 +21,7 @@ const uploadReducer = (state = initialState, action) => {
       return { success: true, response: action.payload, isLoading: false };
 
     case types.MEDIA_UPLOAD_RESET:
-      return state;
+      return { response: null, isLoading: false, success: false };
     default:
       return state;
   }

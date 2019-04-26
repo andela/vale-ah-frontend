@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-update-set-state */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -29,22 +30,32 @@ class RecipeCreationForm extends Component {
     videoList: [],
     cookingTime: '',
     preparationTime: '',
+    uploadResponse: null,
   };
 
   filePickerRef = React.createRef();
+
+  uploadOptions = {
+    typeFilter: ['video'],
+    uploadType: 'recipe_video',
+  };
 
   /**
    * @returns {undefined}
    */
   componentDidUpdate() {
-    const { upload } = this.props;
+    const { upload, resetUploaderState } = this.props;
+    const { uploadResponse } = this.state;
 
-    if (upload.success) {
+    if (upload.success)
+      this.setState({ uploadResponse: upload.response }, () =>
+        resetUploaderState()
+      );
+
+    if (uploadResponse) {
       const {
-        upload: {
-          response: { mediaInfo, stepIndex, uploadType },
-        },
-      } = this.props;
+        uploadResponse: { mediaInfo, stepIndex, uploadType },
+      } = this.state;
 
       if (uploadType === 'recipe_video') {
         const [{ url }] = mediaInfo;
@@ -54,6 +65,7 @@ class RecipeCreationForm extends Component {
       if (uploadType === 'recipe_step') {
         this.updateStepMedia(mediaInfo, stepIndex);
       }
+      this.setState({ uploadResponse: null });
     }
   }
 
@@ -62,11 +74,9 @@ class RecipeCreationForm extends Component {
    * @returns {undefined}
    */
   setRecipeVideo = url => {
-    const { resetUploaderState } = this.props;
     const { videoList } = this.state;
     if (!videoList.length) {
       this.setState({ videoList: [url] });
-      resetUploaderState();
     }
   };
 
@@ -76,13 +86,17 @@ class RecipeCreationForm extends Component {
    * @returns {undefined}
    */
   updateStepMedia = (mediaInfo, stepIndex) => {
-    const { resetUploaderState } = this.props;
+    const resShape = { images: [], videos: [], stepIndex };
 
-    mediaInfo.forEach(({ resType, url }) => {
-      if (resType === 'image') this.syncStepProp(url, stepIndex, 'images');
-      if (resType === 'video') this.syncStepProp(url, stepIndex, 'videos');
-    });
-    resetUploaderState();
+    const update = mediaInfo.reduce((result, { resType, url }) => {
+      const { images, videos } = result;
+
+      if (resType === 'image') return { videos, images: [...images, url] };
+      if (resType === 'video') return { images, videos: [...videos, url] };
+      return result;
+    }, resShape);
+
+    this.syncStepProp(update, stepIndex, 'stepMedia');
   };
 
   /**
@@ -131,9 +145,16 @@ class RecipeCreationForm extends Component {
     const { steps } = this.state;
     const syncedSteps = [...steps];
 
-    if (['images', 'videos'].includes(prop)) {
-      syncedSteps[index][prop].push(value);
-    } else syncedSteps[index][prop] = value;
+    if (prop === 'stepMedia') {
+      const { images, videos } = syncedSteps[index];
+
+      syncedSteps[index].images = [...images, ...value.images];
+      syncedSteps[index].videos = [...videos, ...value.videos];
+
+      this.setState({ steps: syncedSteps });
+    }
+
+    syncedSteps[index][prop] = value;
     this.setState({ steps: syncedSteps });
   };
 
@@ -171,16 +192,12 @@ class RecipeCreationForm extends Component {
 
   /**
    * @param {Event} e change event
+   * @param {object} options
    * @returns {undefined}
    */
-  handleFileChange = e => {
+  handleSelectedFiles = (e, options = this.uploadOptions) => {
     const { uploadMedia } = this.props;
     const { files } = e.target;
-
-    const options = {
-      typeFilter: ['video'],
-      uploadType: 'recipe_video',
-    };
 
     const { uploadPayload, errors } = preUploadAggregator(files, options);
 
@@ -197,7 +214,7 @@ class RecipeCreationForm extends Component {
    * @returns {object} filtered ingredients
    * @memberof RecipeCreationForm
    */
-  handleRemoval = stepRemovalIndex => {
+  removeStep = stepRemovalIndex => {
     const { steps } = this.state;
     const newSteps = [...steps];
 
@@ -217,8 +234,6 @@ class RecipeCreationForm extends Component {
         cookingTime,
         ingredients,
         preparationTime,
-        stepAddHover,
-        stepIndex,
         steps,
         title,
         videoList,
@@ -284,14 +299,13 @@ class RecipeCreationForm extends Component {
                     <div key={key} className="ingredient-image-container">
                       <RecipeStep
                         stepNumber={index + 1}
-                        stepIndex={stepIndex}
                         index={index}
-                        addState={stepAddHover}
                         images={images}
-                        addNewStep={() => this.addNewStep(index)}
-                        handleRemoval={() => this.handleRemoval(index)}
-                        syncStepProp={this.syncStepProp}
                         description={description}
+                        handleSelectedFiles={this.handleSelectedFiles}
+                        syncStepProp={this.syncStepProp}
+                        addNewStep={() => this.addNewStep(index)}
+                        removeStep={() => this.removeStep(index)}
                       />
                       <small className="err-msg">
                         {this.handleError('step')}
@@ -313,7 +327,7 @@ class RecipeCreationForm extends Component {
                     Add Full Video <i className="fas fa-video" />
                     <input
                       type="file"
-                      onChange={this.handleFileChange}
+                      onChange={this.handleSelectedFiles}
                       ref={this.filePickerRef}
                       hidden
                     />
@@ -364,8 +378,8 @@ class RecipeCreationForm extends Component {
 
 RecipeCreationForm.propTypes = {
   handleCreation: PropTypes.func.isRequired,
-  resetUploaderState: PropTypes.func.isRequired,
   uploadMedia: PropTypes.func.isRequired,
+  resetUploaderState: PropTypes.func.isRequired,
   recipeCreation: PropTypes.shape({
     penidng: PropTypes.bool,
     created: PropTypes.bool,

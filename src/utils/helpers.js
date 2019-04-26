@@ -1,6 +1,7 @@
 import axios from 'axios';
 import shortid from 'shortid';
 import store from '../store/store';
+import { appRef } from './refs';
 import * as action from '../actions/auth/auth-actions';
 
 /**
@@ -39,9 +40,10 @@ export const checkAuth = async () => {
  * @param {string} type error or success
  */
 export const handleMessages = (messages, type = 'success') => {
-  if (messages)
-    window.dispatchEvent(
+  if (messages && appRef.current)
+    appRef.current.dispatchEvent(
       new CustomEvent('app-toast', {
+        bubbles: true,
         detail: {
           messages,
           type,
