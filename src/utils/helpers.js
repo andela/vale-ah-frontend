@@ -116,3 +116,16 @@ export const preUploadAggregator = (files, options) => {
 
   return result;
 };
+
+/**
+ * @returns {string|boolean} last image of the last step or false if it doesn't exist
+ * @param {object} steps
+ */
+export const getRecipeImage = (steps = {}) => {
+  const stepValues = Object.values(steps);
+  const stepImages = stepValues.reduce(
+    (acc, { images }) => (images.length ? [...acc, ...images] : acc),
+    []
+  );
+  return [...stepImages].pop();
+};

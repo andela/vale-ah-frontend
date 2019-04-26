@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Steps } from 'intro.js-react';
@@ -75,7 +75,7 @@ class CreateRecipe extends Component {
     }
 
     return (
-      <Fragment>
+      <div className="create-recipe">
         <Steps
           enabled={intro}
           steps={introSteps}
@@ -88,7 +88,7 @@ class CreateRecipe extends Component {
           uploadMedia={uploadMedia}
           resetUploaderState={resetUploaderState}
         />
-      </Fragment>
+      </div>
     );
   }
 }

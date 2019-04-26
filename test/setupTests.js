@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import '@babel/polyfill';
 import 'regenerator-runtime/runtime';
 import enzyme from 'enzyme';
 import thunk from 'redux-thunk';

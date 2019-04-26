@@ -27,12 +27,14 @@
     "react-router-prop-types": "1.0.4",
     "react-toastify": "5.1.0",
     "react-transition-group": "2.9.0",
+    "react-slick": "0.24.0",
     "redux": "4.0.1",
     "redux-devtools-extension": "2.13.8",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.3.0",
     "semantic-ui-react": "0.86.0",
     "shortid": "2.2.14",
+    "slick-carousel": "1.8.1",
     "terser-webpack-plugin": "1.2.3"
   },
   "devDependencies": {
