@@ -3,7 +3,16 @@
   "buildpacks": [],
   "env": {
     "NODE_ENV": {
-      "value": "production"
+      "required": true
+    },
+    "API_BASE_URL": {
+      "required": true 
+    },
+    "UPLOAD_PRESET": {
+      "required": true 
+    },
+    "CLOUD_NAME": {
+      "required": true 
     }
   },
   "formation": {},

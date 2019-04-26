@@ -1,7 +1,8 @@
 import axios from 'axios';
+import shortid from 'shortid';
 import store from '../store/store';
-import * as action from '../actions/auth/auth-actions';
 import { appRef } from './refs';
+import * as action from '../actions/auth/auth-actions';
 
 /**
  * Normalizes errors from the backend
@@ -38,7 +39,7 @@ export const checkAuth = async () => {
  * @param {Array} messages
  * @param {string} type error or success
  */
-export const handleMessages = (messages, type) => {
+export const handleMessages = (messages, type = 'success') => {
   if (messages && appRef.current)
     appRef.current.dispatchEvent(
       new CustomEvent('app-toast', {
@@ -49,6 +50,23 @@ export const handleMessages = (messages, type) => {
         },
       })
     );
+};
+
+/**
+ * Get generate unique identifier
+ * @returns {string} id
+ */
+export const generateKey = () => shortid.generate();
+
+/**
+ * @param {Event} e
+ * @param {*} filePickerRef
+ * @returns {undefined}
+ */
+export const openFilePicker = (e, filePickerRef) => {
+  if (e.keyCode && e.keyCode !== 13) return;
+
+  filePickerRef.current.click();
 };
 
 /**
@@ -73,4 +91,38 @@ export const validateAuthInput = data => {
     errors.confirmPassword = ["passwords don't match"];
   }
   return Object.keys(errors).length ? errors : null;
+};
+
+/**
+ * @param {ArrayLike} files change event
+ * @param {Object} options  options
+ * @returns {object} object of uploadable media files, errors
+ */
+export const preUploadAggregator = (files, options) => {
+  const { typeFilter, stepIndex, uploadType } = options;
+
+  const resultShape = {
+    uploadPayload: { mediaFiles: [], stepIndex, uploadType },
+    errors: [],
+  };
+
+  const result = Array.from(files).reduce((currentResult, currentFile) => {
+    const { name, type } = currentFile;
+    const {
+      uploadPayload: { mediaFiles },
+      errors,
+    } = currentResult;
+
+    if (typeFilter.includes(type.split('/')[0])) {
+      mediaFiles.push(currentFile);
+      currentResult.uploadPayload.mediaFiles = mediaFiles;
+    } else
+      errors.push(
+        `"${name}" - has an unsupported file format and will be discarded.`
+      );
+
+    return currentResult;
+  }, resultShape);
+
+  return result;
 };

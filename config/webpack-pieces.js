@@ -73,7 +73,7 @@ exports.extractStyles = ({ include } = {}) => ({
       {
         test: /\.css$/,
         include,
-        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.scss$/,
@@ -91,7 +91,6 @@ exports.extractStyles = ({ include } = {}) => ({
                     'default',
                     {
                       discardComments: { removeAll: true },
-                      cssDeclarationSorter: { order: 'smacss' },
                     },
                   ],
                 }),

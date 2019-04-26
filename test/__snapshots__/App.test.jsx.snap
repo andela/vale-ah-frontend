@@ -16,8 +16,8 @@ exports[`<App/> rendering matches the snapshot 1`] = `
     <Routes />
   </BrowserRouter>
   <ToastContainer
-    autoClose={1500}
-    bodyClassName={null}
+    autoClose={5000}
+    bodyClassName="my-toast"
     className={null}
     closeButton={
       <CloseButton
@@ -31,8 +31,8 @@ exports[`<App/> rendering matches the snapshot 1`] = `
     newestOnTop={false}
     pauseOnFocusLoss={true}
     pauseOnHover={true}
-    position="top-right"
-    progressClassName={null}
+    position="top-center"
+    progressClassName="toast-progress"
     progressStyle={null}
     rtl={false}
     style={null}

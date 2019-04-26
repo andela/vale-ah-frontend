@@ -34,7 +34,12 @@ class App extends React.Component {
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
-        <ToastContainer autoClose={1500} />
+        <ToastContainer
+          position="top-center"
+          newestOnTop={false}
+          bodyClassName="my-toast"
+          progressClassName="toast-progress"
+        />
       </Provider>
     );
   }

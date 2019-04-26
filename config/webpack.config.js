@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+
 require('dotenv').config();
 
 const {
@@ -40,11 +41,14 @@ const baseConfig = merge([
         },
       ],
     },
+
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-        'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
-      }),
+      new webpack.EnvironmentPlugin([
+        'NODE_ENV',
+        'API_BASE_URL',
+        'CLOUD_NAME',
+        'UPLOAD_PRESET',
+      ]),
     ],
   },
   loadHtml(),
