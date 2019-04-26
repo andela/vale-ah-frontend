@@ -11,7 +11,6 @@ const setup = () => {
     type: 'type',
     value: 'value',
     placeholder: 'placeholder',
-    classNames: 'txt-field',
     onChange: jest.fn(),
     errorExists: () => ({
       name: ['name is required'],
@@ -36,7 +35,6 @@ describe('components', () => {
       const InputProps = wrapper.find('input').props();
       expect(InputProps.value).toBe('value');
       expect(InputProps.placeholder).toBe('placeholder');
-      expect(InputProps.classNames).toBe('txt-field');
     });
 
     it('should render self and subcomponents', () => {
