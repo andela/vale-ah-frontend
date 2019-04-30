@@ -2,7 +2,6 @@ import axios from 'axios';
 import faker from 'faker';
 import * as types from '../action-types';
 import * as actions from './auth-actions';
-import * as socialActions from './social-actions';
 import * as dispatcher from './auth-dispatchers';
 import { mockStore } from '../../../test/setupTests';
 
@@ -77,7 +76,7 @@ describe('actions', () => {
     const expectedAction = {
       type: types.SOCIAL_LOGIN_REQUEST,
     };
-    expect(socialActions.socialLoginStart()).toEqual(expectedAction);
+    expect(actions.socialLoginStart()).toEqual(expectedAction);
   });
 
   it('should create an action for social login success', () => {
@@ -85,7 +84,7 @@ describe('actions', () => {
       type: types.SOCIAL_LOGIN_SUCCESS,
       payload,
     };
-    expect(socialActions.socialLoginSuccess(payload)).toEqual(expectedAction);
+    expect(actions.socialLoginSuccess(payload)).toEqual(expectedAction);
   });
 });
 
@@ -162,7 +161,7 @@ describe('async', () => {
   it('should handle social login success', async () => {
     const store = mockStore({});
     const expectedActions = [{ type: types.SOCIAL_LOGIN_SUCCESS }];
-    store.dispatch(socialActions.socialLoginSuccess());
+    store.dispatch(actions.socialLoginSuccess());
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

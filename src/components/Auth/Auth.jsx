@@ -6,10 +6,13 @@ import { Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import AuthHeader from './AuthHeader';
 import TextInput from '../TextInput/TextInput';
-import { loginUser, registerUser } from '../../actions/auth/auth-dispatchers';
+import {
+  loginUser,
+  registerUser,
+  socialLogin,
+} from '../../actions/auth/auth-dispatchers';
 import { appRef } from '../../utils/refs';
 import { checkAuth } from '../../utils/helpers';
-import { socialLogin } from '../../actions/auth/social-actions';
 
 /**
  * Auth component
@@ -19,7 +22,7 @@ export class AuthComponent extends Component {
   static propTypes = {
     register: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
-    history: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     social: PropTypes.func.isRequired,
     location: PropTypes.shape({}).isRequired,
     auth: PropTypes.shape({

@@ -39,6 +39,20 @@ const authReducer = (state = initialState, action) => {
         success: false,
       };
 
+    case types.SOCIAL_LOGIN_REQUEST:
+      return { ...state, isLoading: true };
+
+    case types.SOCIAL_LOGIN_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        response: action.payload,
+        isLoggedIn: true,
+      };
+
+    case types.SOCIAL_LOGIN_FAILURE:
+      return { ...state, error: true, response: action.payload };
+
     case types.LOGOUT:
       return { ...initialState };
 

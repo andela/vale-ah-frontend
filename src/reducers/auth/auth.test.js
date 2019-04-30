@@ -59,6 +59,50 @@ describe('AuthReducer', () => {
     });
   });
 
+  it('should return the initial state', () => {
+    expect(authReducer(initialState, {})).toEqual(initialState);
+  });
+
+  it('should handle social authentication request', () => {
+    expect(
+      authReducer(initialState, {
+        action: {
+          type: types.SOCIAL_LOGIN_REQUEST,
+        },
+      })
+    ).toEqual({
+      ...initialState,
+      isLoading: false,
+    });
+  });
+
+  it('should handle social success', () => {
+    expect(
+      authReducer(initialState, {
+        type: types.SOCIAL_LOGIN_SUCCESS,
+        payload,
+      })
+    ).toEqual({
+      ...initialState,
+      isLoggedIn: true,
+      response: payload,
+      success: true,
+    });
+  });
+
+  it('should handle social failure', () => {
+    expect(
+      authReducer(initialState, {
+        type: types.SOCIAL_LOGIN_FAILURE,
+        payload,
+      })
+    ).toEqual({
+      ...initialState,
+      response: payload,
+      error: true,
+    });
+  });
+
   it('should handle Logout', () => {
     expect(
       authReducer(initialState, {

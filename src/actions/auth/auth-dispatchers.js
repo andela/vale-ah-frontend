@@ -4,6 +4,7 @@ import {
   normalizeErrors,
   handleMessages,
   validateAuthInput,
+  checkAuth,
 } from '../../utils/helpers';
 
 const baseUrl = `${process.env.API_BASE_URL}/users`;
@@ -50,6 +51,23 @@ export const registerUser = (data = {}) => async dispatch => {
 
       dispatch(actions.authFailureAction(errors));
     }
+  }
+};
+
+/**
+ * @param {string} token - oauth provider
+ * @param {string} history - oauth provider
+ * @returns {undefined}
+ */
+export const socialLogin = (token, history) => dispatch => {
+  dispatch(actions.socialLoginStart());
+  try {
+    localStorage.setItem('token', token);
+    dispatch(actions.socialLoginSuccess(token));
+    checkAuth();
+    history.push('/recipes/create');
+  } catch (error) {
+    dispatch(actions.socialLoginFailure(error));
   }
 };
 

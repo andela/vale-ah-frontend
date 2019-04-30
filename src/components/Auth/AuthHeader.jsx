@@ -11,25 +11,20 @@ import SocialButton from '../SocialButton/SocialButton';
 const AuthHeader = ({ authType }) => {
   const [titleText, authTypeText] =
     authType === 'login' ? ['Welcome to', 'Sign in'] : ['Join', 'Sign up'];
-  const socialProviders = [
-    {
-      name: 'Facebook',
-      url: `${process.env.API_BASE_URL}/auth/login/facebook`,
-    },
-    { name: 'Google', url: `${process.env.API_BASE_URL}/auth/login/google` },
-    { name: 'Twitter', url: `${process.env.API_BASE_URL}/auth/login/twitter` },
-  ];
+
+  const SocialButtons = ['Facebook', 'Google', 'Twitter'].map(provider => (
+    <SocialButton
+      url={`${process.env.API_BASE_URL}/auth/login/${provider.toLowerCase()}`}
+      key={provider}
+      authType={authTypeText}
+      provider={provider}
+    />
+  ));
+
   return (
     <header className="auth-header">
       <Header as="h2">{titleText} Naija ChopChop</Header>
-      {socialProviders.map(provider => (
-        <SocialButton
-          url={provider.url}
-          key={provider.name}
-          authType={authTypeText}
-          provider={provider.name}
-        />
-      ))}
+      {SocialButtons}
     </header>
   );
 };
