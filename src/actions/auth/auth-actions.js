@@ -24,6 +24,31 @@ export const authSuccessAction = payload => ({
 });
 
 /**
+ * @returns {object} - social start action
+ */
+export const socialLoginStart = () => ({
+  type: types.SOCIAL_LOGIN_REQUEST,
+});
+
+/**
+ * @param {*} payload
+ * @returns {object} type and payload
+ */
+export const socialLoginSuccess = payload => ({
+  type: types.SOCIAL_LOGIN_SUCCESS,
+  payload,
+});
+
+/**
+ * @param {*} payload
+ * @returns {object} type and payload
+ */
+export const socialLoginFailure = payload => ({
+  type: types.SOCIAL_LOGIN_FAILURE,
+  payload,
+});
+
+/**
  * @param {object} payload
  * @returns {Action} auth failure action
  */

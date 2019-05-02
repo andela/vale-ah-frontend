@@ -71,6 +71,21 @@ describe('actions', () => {
     };
     expect(actions.clearError()).toEqual(expectedAction);
   });
+
+  it('should create an action for social Login start', () => {
+    const expectedAction = {
+      type: types.SOCIAL_LOGIN_REQUEST,
+    };
+    expect(actions.socialLoginStart()).toEqual(expectedAction);
+  });
+
+  it('should create an action for social login success', () => {
+    const expectedAction = {
+      type: types.SOCIAL_LOGIN_SUCCESS,
+      payload,
+    };
+    expect(actions.socialLoginSuccess(payload)).toEqual(expectedAction);
+  });
 });
 
 describe('async', () => {
@@ -140,6 +155,13 @@ describe('async', () => {
     const store = mockStore({});
     const expectedActions = [{ type: types.LOGOUT }];
     store.dispatch(dispatcher.logoutUser());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('should handle social login success', async () => {
+    const store = mockStore({});
+    const expectedActions = [{ type: types.SOCIAL_LOGIN_SUCCESS }];
+    store.dispatch(actions.socialLoginSuccess());
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

@@ -1,4 +1,5 @@
-import '../node_modules/regenerator-runtime/runtime';
+/* eslint-disable import/no-extraneous-dependencies */
+import 'regenerator-runtime/runtime';
 import enzyme from 'enzyme';
 import thunk from 'redux-thunk';
 import Adapter from 'enzyme-adapter-react-16';

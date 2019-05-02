@@ -6,16 +6,18 @@ import { Icon, Button } from 'semantic-ui-react';
  * @param {props} properties
  * @returns {JSX.Element} Social button component
  */
-const SocialButton = ({ authType, provider }) => (
+const SocialButton = ({ authType, provider, url }) => (
   <div className="social">
     <Button
       type="button"
-      className={`social-button button--${provider.toLowerCase()}`}
+      className={`social-button link button--${provider.toLowerCase()}`}
     >
-      <Icon name={provider.toLowerCase()} />
-      <span className="text">
-        {authType} with {provider}
-      </span>
+      <a href={url} className="link">
+        <Icon name={provider.toLowerCase()} />
+        <span className="text">
+          {authType} with {provider}
+        </span>
+      </a>
     </Button>
   </div>
 );
@@ -23,6 +25,7 @@ const SocialButton = ({ authType, provider }) => (
 SocialButton.propTypes = {
   authType: PropTypes.string.isRequired,
   provider: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default SocialButton;

@@ -1,27 +1,27 @@
 .ingredient-item {
   background: #fbfbfb;
-  border: 1px solid #d8d8d8;
+  border: 0.0625rem solid #d8d8d8;
   display: flex;
   hyphens: auto;
   justify-content: space-between;
-  margin: 0 0 5px;
+  margin: 0 0 0.3125rem;
   max-width: 100%;
   overflow-wrap: break-word;
-  padding: 8px 10px;
+  padding: 0.5rem 0.625rem;
   word-break: break-word;
   font-weight: 400;
   word-wrap: break-word;
-  border-radius: 3px;
-  font-size: 1.4rem;
+  border-radius: 0.1875rem;
+  font-size: 0.9rem;
   transition: transform 300ms ease-in-out;
 
   &:last-child {
-    margin: 0 0 40px;
+    margin: 0 0 2.5rem;
   }
 
   &:hover {
     font-weight: 600;
-    transform: translateX(5px);
+    transform: translateX(0.3125rem);
     visibility: visible;
   }
 }
@@ -29,11 +29,11 @@
 .add-icon,
 .remove-icon {
   border-radius: 50%;
-  border: 1px solid #ccc;
+  border: 0.0625rem solid #ccc;
   cursor: pointer;
-  font-size: 12px;
-  margin: 0 10px;
-  padding: 5px;
+  font-size: 0.75rem;
+  margin: 0 0.625rem;
+  padding: 0.3125rem;
 }
 
 .remove-icon {
@@ -49,14 +49,14 @@
 
 .emp {
   display: block;
-  width: 25px;
+  width: 1.5625rem;
 }
 
 .no-ing {
   display: block;
   font-style: italic;
   font-weight: 600;
-  margin: 5px 0;
+  margin: 0.3125rem 0;
 }
 
 .ingredient-section {
@@ -64,23 +64,24 @@
 }
 
 .col-title {
-  font-size: 2rem;
+  font-size: 22.4px;
   font-weight: 800;
-  margin: 0 0 40px 0;
+  margin: 0 0 2.5rem 0;
 }
 
 .ingredient-lists {
   list-style: none;
-  margin: 0 0 15px 0;
   max-width: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .text-field {
   border: none;
-  border-bottom-right-radius: 2px;
-  border-bottom: 2px solid #dbdbdb;
-  border-right: 2px solid #dbdbdb;
+  border-bottom-right-radius: 0.125rem;
+  border-bottom: 0.125rem solid #dbdbdb;
+  border-right: 0.125rem solid #dbdbdb;
   caret-color: #f8c418;
   display: inline-block;
   font-family: "Nunito", sans-serif;
@@ -88,17 +89,17 @@
 
 .err-msg {
   color: red;
-  font-size: 11px;
+  font-size: 0.8125rem;
   display: block;
   position: absolute;
-  bottom: -17px;
+  bottom: -1.375rem;
   font-weight: 500;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 62.5rem) {
   .input-block {
     position: relative;
     flex-basis: 100%;
-    margin: 24px 0;
+    margin: 1.5rem 0;
   }
 }
