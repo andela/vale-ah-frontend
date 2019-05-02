@@ -45,7 +45,7 @@ export const passwordResetLinkFailure = payload => ({
 export const sendResetLink = email => dispatch => {
   dispatch(passwordResetLinkStart());
   return axios
-    .post(`${process.env.API_BASE_URL}users/reset-password/email`, { email })
+    .post(`${process.env.API_BASE_URL}/users/reset-password/email`, { email })
     .then(res => {
       dispatch(passwordResetLinkSuccess(res.data.message));
     })
