@@ -1,11 +1,11 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import PropTypes from 'prop-types';
 import Routes from './routes/Routes';
-import store from './store/store';
-import { showToast, checkAuth } from './utils/helpers';
-import { authSuccessAction, clearError } from './actions/auth/auth-actions';
+import { showToast } from './utils/helpers';
+import { checkAuth } from './actions/auth/auth-dispatchers';
 
 /**
  * @description - App component
@@ -16,10 +16,8 @@ class App extends React.Component {
    * @returns {undefined}
    */
   async componentDidMount() {
-    const user = await checkAuth();
-    if (user) store.dispatch(authSuccessAction({ user }));
-    else store.dispatch(clearError());
-
+    const { getCurrentUser } = this.props;
+    getCurrentUser();
     window.addEventListener('app-toast', e =>
       showToast(e.detail.messages, e.detail.type)
     );
@@ -30,7 +28,7 @@ class App extends React.Component {
    */
   render() {
     return (
-      <Provider store={store}>
+      <Fragment>
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
@@ -40,9 +38,16 @@ class App extends React.Component {
           bodyClassName="my-toast"
           progressClassName="toast-progress"
         />
-      </Provider>
+      </Fragment>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  getCurrentUser: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  { getCurrentUser: checkAuth }
+)(App);

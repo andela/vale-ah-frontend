@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-import axios from 'axios';
 import shortid from 'shortid';
 import { toast } from 'react-toastify';
 import { appRef } from './refs';
@@ -17,26 +15,6 @@ export const normalizeErrors = error => {
     data: { errors },
   } = error.response;
   return errors instanceof Array ? { messages: errors } : errors;
-};
-
-/**
- * @returns {object} current user
- */
-export const checkAuth = async () => {
-  try {
-    const token = localStorage.getItem('token');
-
-    if (token == null) {
-      return;
-    }
-
-    const res = await axios.get(`${process.env.API_BASE_URL}/user`, {
-      headers: { authorization: token },
-    });
-    return res.data;
-  } catch (error) {
-    return null;
-  }
 };
 
 /**

@@ -4,7 +4,6 @@ import {
   normalizeErrors,
   handleMessages,
   validateAuthInput,
-  checkAuth,
 } from '../../utils/helpers';
 
 const baseUrl = `${process.env.API_BASE_URL}/users`;
@@ -51,6 +50,22 @@ export const registerUser = (data = {}) => async dispatch => {
 
       dispatch(actions.authFailureAction(errors));
     }
+  }
+};
+
+/**
+ * @returns {undefined}
+ */
+export const checkAuth = () => async dispatch => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    const res = await axios.get(`${process.env.API_BASE_URL}/user`, {
+      headers: { authorization: token },
+    });
+    dispatch(actions.authSuccessAction(res.data));
+  } catch (error) {
+    dispatch(actions.logoutAction());
   }
 };
 

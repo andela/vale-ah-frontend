@@ -10,8 +10,8 @@ import {
   loginUser,
   registerUser,
   socialLogin,
+  checkAuth,
 } from '../../actions/auth/auth-dispatchers';
-import { checkAuth } from '../../utils/helpers';
 
 /**
  * Auth component
@@ -217,7 +217,12 @@ export const RoutedAuth = withRouter(AuthComponent);
 
 const Auth = connect(
   mapStateToProps,
-  { login: loginUser, register: registerUser, social: socialLogin }
+  {
+    login: loginUser,
+    register: registerUser,
+    social: socialLogin,
+    getCurrentUser: checkAuth,
+  }
 )(RoutedAuth);
 
 export default Auth;

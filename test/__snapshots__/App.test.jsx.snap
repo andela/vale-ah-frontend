@@ -1,43 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App/> rendering matches the snapshot 1`] = `
-<Provider
-  store={
-    Object {
-      "dispatch": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-      Symbol(observable): [Function],
-    }
-  }
->
-  <BrowserRouter>
-    <Routes />
-  </BrowserRouter>
-  <ToastContainer
-    autoClose={5000}
-    bodyClassName="my-toast"
-    className={null}
-    closeButton={
-      <CloseButton
-        ariaLabel="close"
-      />
-    }
-    closeOnClick={true}
-    draggable={true}
-    draggablePercent={80}
-    hideProgressBar={false}
-    newestOnTop={false}
-    pauseOnFocusLoss={true}
-    pauseOnHover={true}
-    position="top-center"
-    progressClassName="toast-progress"
-    progressStyle={null}
-    rtl={false}
-    style={null}
-    toastClassName={null}
-    transition={[Function]}
-  />
-</Provider>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;
