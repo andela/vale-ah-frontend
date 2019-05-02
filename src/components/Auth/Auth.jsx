@@ -171,7 +171,9 @@ export class AuthComponent extends Component {
               })}
 
               {authType === 'login' && (
-                <p className="forgot-password">Forgot password?</p>
+                <Link to="/password/reset" className="forgot-password">
+                  Forgot password?
+                </Link>
               )}
               <Button
                 type="submit"

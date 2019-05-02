@@ -16,7 +16,7 @@ exports[`<App/> rendering matches the snapshot 1`] = `
     <Routes />
   </BrowserRouter>
   <ToastContainer
-    autoClose={5000}
+    autoClose={4000}
     bodyClassName="my-toast"
     className={null}
     closeButton={

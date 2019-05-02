@@ -16,9 +16,11 @@ describe('AuthReducer', () => {
       password: '12345678',
     },
   };
+
   it('should return initial state', () => {
     expect(authReducer(initialState, {})).toEqual(initialState);
   });
+
   it('should handle Login Request', () => {
     expect(
       authReducer(initialState, {

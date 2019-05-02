@@ -13,6 +13,7 @@ const payload = {
     confirmPassword: 'password',
   },
 };
+
 const mockData = {
   data: {
     user: {

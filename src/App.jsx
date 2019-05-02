@@ -39,6 +39,7 @@ class App extends React.Component {
           newestOnTop={false}
           bodyClassName="my-toast"
           progressClassName="toast-progress"
+          autoClose={4000}
         />
       </Provider>
     );
