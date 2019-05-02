@@ -1,9 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Routes from './routes/Routes';
 import store from './store/store';
+import { showToast, checkAuth } from './utils/helpers';
+import { authSuccessAction, clearError } from './actions/auth/auth-actions';
 
 /**
  * @description - App component
@@ -13,16 +15,14 @@ class App extends React.Component {
   /**
    * @returns {undefined}
    */
-  componentDidMount() {
-    window.addEventListener('app-toast', event => {
-      if (event.detail.type === 'error') {
-        event.detail.messages.forEach(message => toast.error(message));
-      } else if (event.detail.type === 'success') {
-        event.detail.messages.forEach(message => toast.success(message));
-      } else {
-        event.detail.messages.forEach(message => toast.info(message));
-      }
-    });
+  async componentDidMount() {
+    const user = await checkAuth();
+    if (user) store.dispatch(authSuccessAction({ user }));
+    else store.dispatch(clearError());
+
+    window.addEventListener('app-toast', e =>
+      showToast(e.detail.messages, e.detail.type)
+    );
   }
 
   /**

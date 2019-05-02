@@ -1,8 +1,8 @@
+/* eslint-disable consistent-return */
 import axios from 'axios';
 import shortid from 'shortid';
-import store from '../store/store';
+import { toast } from 'react-toastify';
 import { appRef } from './refs';
-import * as action from '../actions/auth/auth-actions';
 
 /**
  * Normalizes errors from the backend
@@ -20,7 +20,7 @@ export const normalizeErrors = error => {
 };
 
 /**
- * @returns {undefined}
+ * @returns {object} current user
  */
 export const checkAuth = async () => {
   try {
@@ -33,10 +33,9 @@ export const checkAuth = async () => {
     const res = await axios.get(`${process.env.API_BASE_URL}/user`, {
       headers: { authorization: token },
     });
-
-    store.dispatch(action.authSuccessAction({ user: res.data.user }));
+    return res.data;
   } catch (error) {
-    store.dispatch(action.clearError());
+    return null;
   }
 };
 
@@ -56,6 +55,15 @@ export const handleMessages = (messages, type = 'success') => {
         },
       })
     );
+};
+
+/**
+ * @returns {undefined}
+ * @param {array} messages
+ * @param {string} type
+ */
+export const showToast = (messages = [], type = 'info') => {
+  messages.map(message => toast[type](message));
 };
 
 /**
