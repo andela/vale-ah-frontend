@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import PasswordResetEmail from '../components/Auth/PasswordResetEmail';
+import PasswordReset from '../components/Auth/PasswordReset';
 import Home from '../pages/Home/Home';
 import CreateRecipe from '../pages/Recipe/CreateRecipes/CreateRecipe';
 import Login from '../components/Login/Login';
-import PasswordResetEmail from '../components/auth/PasswordResetEmail';
-import PasswordReset from '../components/auth/PasswordReset';
 
 /**
  * Routes Component
@@ -14,11 +14,10 @@ const Routes = () => (
   <Switch>
     <Route path="/:authType(login|register)?" component={Home} exact />
     <Route path="/recipes/create" component={CreateRecipe} exact />
-    <Route component={Home} />
-    <Route path="/" component={Recipe} exact />
     <Route path="/login" component={Login} exact />
     <Route path="/password/reset" component={PasswordResetEmail} exact />
     <Route path="/api/users/reset-password" component={PasswordReset} exact />
+    <Route component={Home} exact />
   </Switch>
 );
 

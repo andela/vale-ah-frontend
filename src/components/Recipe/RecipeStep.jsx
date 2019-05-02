@@ -7,7 +7,7 @@ import ImageWidget from './ImageWidget';
  *
  * @class RecipeStep
  */
-class  RecipeStep extends Component {
+class RecipeStep extends Component {
   state = { addHover: false };
 
   filePickerRef = React.createRef();

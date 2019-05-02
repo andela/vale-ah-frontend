@@ -45,9 +45,9 @@ export const passwordResetFailure = payload => ({
  */
 export const changePassword = (password, token) => dispatch => {
   dispatch(passwordResetStart());
-  axios
+  return axios
     .post(
-      'http://localhost:3000/api/users/reset-password',
+      `${process.env.API_BASE_URL}/users/reset-password`,
       { password },
       {
         headers: { Authorization: token },

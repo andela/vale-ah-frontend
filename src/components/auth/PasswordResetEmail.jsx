@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Message } from 'semantic-ui-react';
+import { Button, Form, Message } from 'semantic-ui-react';
 import { isEmail } from 'validator';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Lock from '../../../public/assets/lock.svg';
 import { sendResetLink } from '../../actions/auth/password-reset-link';
 
 /**
@@ -119,21 +118,10 @@ class PasswordResetLink extends Component {
     } = this.props;
 
     return (
-      <div>
-        <Modal
-          trigger={<Button>Show Modal</Button>}
-          centered={false}
-          closeIcon
-          id="modal"
-        >
-          <Modal.Header>
-            <div>
-              <img src={Lock} alt="lock" className="lock" />
-            </div>
-            Recover your password
-          </Modal.Header>
-
-          <Modal.Content>
+      <section className="container">
+        <div className="form-container">
+          <h3 className="form-brief">Recover your password</h3>
+          <div>
             {success && (
               <Message
                 success
@@ -156,12 +144,12 @@ class PasswordResetLink extends Component {
                 />
                 {[
                   errors.email ? (
-                    <small className="err-msg">{errors.email}</small>
+                    <small id="err-msg">{errors.email}</small>
                   ) : (
                     ''
                   ),
                   passwordError.length > 0 && (
-                    <small className="err-msg">{passwordError[0]}</small>
+                    <small id="err-msg">{passwordError[0]}</small>
                   ),
                 ]}
               </Form.Field>
@@ -173,9 +161,9 @@ class PasswordResetLink extends Component {
                 )}
               </Button>
             </Form>
-          </Modal.Content>
-        </Modal>
-      </div>
+          </div>
+        </div>
+      </section>
     );
   }
 }

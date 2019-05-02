@@ -3,9 +3,7 @@ body {
   box-sizing: border-box;
   font-family: $font-primary;
   height: 100%;
-
-  background: rgb(173, 173, 173);
-  background: $color-darkgrey;
+  // font-size: 16px;
 }
 
 *,
@@ -13,18 +11,9 @@ body {
 *::before {
   box-sizing: inherit;
   font-family: inherit;
-  margin: 0;
-  padding: 0;
 }
 
 a {
   color: initial;
   text-decoration: none;
-}
-
-.container {
-  background-color: rgb(255, 255, 255);
-  max-width: 95%;
-  height: 100%;
-  margin: auto;
 }

@@ -123,8 +123,8 @@ class PasswordReset extends Component {
     } = this.props;
 
     if (success) {
-      history.push('/login');
       toast.success(response.message);
+      history.push('/login');
     }
 
     return (

@@ -10,7 +10,7 @@ import {
  * @returns
  * @returns {object} object
  */
-export const passwordResetStart = () => ({
+export const passwordResetLinkStart = () => ({
   type: PASSWORD_RESET_LINK_START,
 });
 
@@ -20,7 +20,7 @@ export const passwordResetStart = () => ({
  * @returns
  * @returns {object} object
  */
-export const passwordResetSuccess = payload => ({
+export const passwordResetLinkSuccess = payload => ({
   type: PASSWORD_RESET_LINK_SUCCESS,
   payload,
 });
@@ -31,7 +31,7 @@ export const passwordResetSuccess = payload => ({
  * @returns
  * @returns {object} object
  */
-export const passwordResetFailure = payload => ({
+export const passwordResetLinkFailure = payload => ({
   type: PASSWORD_RESET_LINK_FAILURE,
   payload,
 });
@@ -43,13 +43,13 @@ export const passwordResetFailure = payload => ({
  * @returns {dispatch} dispatch
  */
 export const sendResetLink = email => dispatch => {
-  dispatch(passwordResetStart());
+  dispatch(passwordResetLinkStart());
   return axios
-    .post('http://localhost:3000/api/users/reset-password/email', { email })
+    .post(`${process.env.API_BASE_URL}users/reset-password/email`, { email })
     .then(res => {
-      dispatch(passwordResetSuccess(res.data.message));
+      dispatch(passwordResetLinkSuccess(res.data.message));
     })
     .catch(err => {
-      dispatch(passwordResetFailure(err.response.data.errors));
+      dispatch(passwordResetLinkFailure(err.response.data.errors));
     });
 };
