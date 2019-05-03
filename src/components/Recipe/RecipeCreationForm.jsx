@@ -43,10 +43,13 @@ class RecipeCreationForm extends Component {
   /**
    * @returns {undefined}
    */
-  componentDidUpdate() {
-    const { upload, resetUploaderState } = this.props;
+  componentDidUpdate({ recipe: prevRecipe }) {
+    const { upload, resetUploaderState, mode } = this.props;
     const { uploadResponse } = this.state;
 
+    if (mode === 'edit') {
+      this.formatReturnedValue(prevRecipe);
+    }
     if (upload.success)
       this.setState({ uploadResponse: upload.response }, () =>
         resetUploaderState()
@@ -225,11 +228,50 @@ class RecipeCreationForm extends Component {
   };
 
   /**
+   * @param { object } prevRecipe
+   * @returns { undefined}
+   */
+  formatReturnedValue(prevRecipe) {
+    const {
+      recipe: {
+        title,
+        ingredients,
+        steps,
+        isLoading,
+        cookingTime,
+        preparationTime,
+      },
+    } = this.props;
+
+    const newSteps = Object.values(steps).map(item => ({
+      ...item,
+      videos: item.videos || [],
+    }));
+
+    if (isLoading !== prevRecipe.isLoading && newSteps.length) {
+      const newIngredients = ingredients.map(ingredient => ({
+        key: generateKey(),
+        ingredient,
+      }));
+      this.setState(prevSate => {
+        return {
+          ...prevSate,
+          title,
+          cookingTime,
+          preparationTime,
+          ingredients: newIngredients,
+          steps: [...newSteps],
+        };
+      });
+    }
+  }
+
+  /**
    * @returns {JSX.Element} RecipeCreationForm
    */
   render() {
     const {
-      props: { recipeCreation },
+      props: { recipeCreation, mode },
       state: {
         cookingTime,
         ingredients,
@@ -239,12 +281,13 @@ class RecipeCreationForm extends Component {
         videoList,
       },
     } = this;
-
     return (
       <form className="recipe-creation-form" onSubmit={this.handleSubmit}>
         <div className="container">
           <div className="recipe-creation-body">
-            <h2 className="col-title">Add New Recipe</h2>
+            <h2 className="col-title">
+              {mode === 'edit' ? 'Update' : 'Add New'} Recipe
+            </h2>
             <div className="row recipe-header">
               <div className="input-block">
                 <input
@@ -344,7 +387,7 @@ class RecipeCreationForm extends Component {
                       </div>
                     ) : null
                   )}
-                  {videoList.length > 0 && (
+                  {videoList && videoList.length > 0 && (
                     <div className="video-widget">
                       <p className="step">Full video</p>
                       <video className="full-video" controls src={videoList[0]}>
@@ -395,6 +438,13 @@ RecipeCreationForm.propTypes = {
     isLoading: PropTypes.bool,
     success: PropTypes.bool,
   }).isRequired,
+  recipe: PropTypes.shape([]),
+  mode: PropTypes.string,
+};
+
+RecipeCreationForm.defaultProps = {
+  recipe: {},
+  mode: 'create',
 };
 
 /**
