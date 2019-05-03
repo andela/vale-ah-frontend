@@ -1,31 +1,19 @@
-.steps {
-  .show-images {
-    margin-bottom: 1.875rem;
+.recipe-steps {
+  width: 100%;
+
+  .step {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .steps-number {
+      padding: 0 0.625rem;
+      margin-right: 0.625rem;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      color: $color-white;
+      background-color: $color-black;
+    }
   }
-  .image-slide {
-    width: 12.5rem;
-  }
-}
-.slides .slick-prev,
-.slides .slick-next {
-  color: $color-black;
-}
-
-.slides {
-  position: relative;
-}
-
-.slides .slick-prev,
-.slides .slick-next {
-  position: absolute;
-  top: 50%;
-  z-index: 1;
-}
-
-.slides .slick-prev {
-  left: 5%;
-}
-
-.slides .slick-next {
-  right: 5%;
 }
