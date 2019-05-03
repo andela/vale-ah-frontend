@@ -1,6 +1,5 @@
 import shortid from 'shortid';
 import { toast } from 'react-toastify';
-import { appRef } from './refs';
 
 /**
  * Normalizes errors from the backend
@@ -22,17 +21,16 @@ export const normalizeErrors = error => {
  * @param {Array} messages
  * @param {string} type error or success
  */
-export const handleMessages = (messages, type = 'success') => {
-  if (messages && appRef.current)
-    appRef.current.dispatchEvent(
-      new CustomEvent('app-toast', {
-        bubbles: true,
-        detail: {
-          messages,
-          type,
-        },
-      })
-    );
+export const handleMessages = (messages = [], type = 'info') => {
+  window.dispatchEvent(
+    new CustomEvent('app-toast', {
+      bubbles: true,
+      detail: {
+        messages,
+        type,
+      },
+    })
+  );
 };
 
 /**

@@ -15,7 +15,7 @@ class App extends React.Component {
   /**
    * @returns {undefined}
    */
-  async componentDidMount() {
+  componentDidMount() {
     const { getCurrentUser } = this.props;
     getCurrentUser();
     window.addEventListener('app-toast', e =>
