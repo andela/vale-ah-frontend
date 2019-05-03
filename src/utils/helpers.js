@@ -1,8 +1,5 @@
-import axios from 'axios';
 import shortid from 'shortid';
-import store from '../store/store';
-import { appRef } from './refs';
-import * as action from '../actions/auth/auth-actions';
+import { toast } from 'react-toastify';
 
 /**
  * Normalizes errors from the backend
@@ -21,41 +18,28 @@ export const normalizeErrors = error => {
 
 /**
  * @returns {undefined}
+ * @param {Array} messages
+ * @param {string} type error or success
  */
-export const checkAuth = async () => {
-  try {
-    const token = localStorage.getItem('token');
-
-    if (token == null) {
-      return;
-    }
-
-    const res = await axios.get(`${process.env.API_BASE_URL}/user`, {
-      headers: { authorization: token },
-    });
-
-    store.dispatch(action.authSuccessAction({ user: res.data.user }));
-  } catch (error) {
-    store.dispatch(action.clearError());
-  }
+export const handleMessages = (messages = [], type = 'info') => {
+  window.dispatchEvent(
+    new CustomEvent('app-toast', {
+      bubbles: true,
+      detail: {
+        messages,
+        type,
+      },
+    })
+  );
 };
 
 /**
  * @returns {undefined}
- * @param {Array} messages
- * @param {string} type error or success
+ * @param {array} messages
+ * @param {string} type
  */
-export const handleMessages = (messages, type = 'success') => {
-  if (messages && appRef.current)
-    appRef.current.dispatchEvent(
-      new CustomEvent('app-toast', {
-        bubbles: true,
-        detail: {
-          messages,
-          type,
-        },
-      })
-    );
+export const showToast = (messages = [], type = 'info') => {
+  messages.map(message => toast[type](message));
 };
 
 /**

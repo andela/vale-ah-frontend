@@ -164,4 +164,27 @@ describe('async', () => {
     store.dispatch(actions.socialLoginSuccess());
     expect(store.getActions()).toEqual(expectedActions);
   });
+
+  describe('checkAuth', () => {
+    it('it should handle successful check Auth', async () => {
+      const token = faker.random.uuid();
+      const getItem = jest.fn(() => token);
+      Object.defineProperty(window, 'localStorage', {
+        writable: true,
+        value: {
+          getItem,
+        },
+      });
+
+      axios.get.mockResolvedValue(mockData);
+
+      const store = mockStore({});
+      await store.dispatch(dispatcher.checkAuth());
+
+      const expectedActions = [
+        { type: 'AUTH_SUCCESS', payload: { user: mockData.data.user } },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 });

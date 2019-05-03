@@ -10,9 +10,8 @@ import {
   loginUser,
   registerUser,
   socialLogin,
+  checkAuth,
 } from '../../actions/auth/auth-dispatchers';
-import { appRef } from '../../utils/refs';
-import { checkAuth } from '../../utils/helpers';
 
 /**
  * Auth component
@@ -155,7 +154,7 @@ export class AuthComponent extends Component {
     ];
     const { user } = this.state;
     return (
-      <div className="auth" ref={appRef}>
+      <div className="auth">
         <form onSubmit={this.handleSubmit} id="authForm">
           <AuthHeader authType={authType} />
           <section>
@@ -218,7 +217,12 @@ export const RoutedAuth = withRouter(AuthComponent);
 
 const Auth = connect(
   mapStateToProps,
-  { login: loginUser, register: registerUser, social: socialLogin }
+  {
+    login: loginUser,
+    register: registerUser,
+    social: socialLogin,
+    getCurrentUser: checkAuth,
+  }
 )(RoutedAuth);
 
 export default Auth;

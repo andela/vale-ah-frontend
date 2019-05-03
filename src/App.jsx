@@ -1,9 +1,11 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import PropTypes from 'prop-types';
 import Routes from './routes/Routes';
-import store from './store/store';
+import { showToast } from './utils/helpers';
+import { checkAuth } from './actions/auth/auth-dispatchers';
 
 /**
  * @description - App component
@@ -14,15 +16,11 @@ class App extends React.Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    window.addEventListener('app-toast', event => {
-      if (event.detail.type === 'error') {
-        event.detail.messages.forEach(message => toast.error(message));
-      } else if (event.detail.type === 'success') {
-        event.detail.messages.forEach(message => toast.success(message));
-      } else {
-        event.detail.messages.forEach(message => toast.info(message));
-      }
-    });
+    const { getCurrentUser } = this.props;
+    getCurrentUser();
+    window.addEventListener('app-toast', e =>
+      showToast(e.detail.messages, e.detail.type)
+    );
   }
 
   /**
@@ -30,7 +28,7 @@ class App extends React.Component {
    */
   render() {
     return (
-      <Provider store={store}>
+      <Fragment>
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
@@ -40,9 +38,16 @@ class App extends React.Component {
           bodyClassName="my-toast"
           progressClassName="toast-progress"
         />
-      </Provider>
+      </Fragment>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  getCurrentUser: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  { getCurrentUser: checkAuth }
+)(App);

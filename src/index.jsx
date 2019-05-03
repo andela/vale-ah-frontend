@@ -2,10 +2,15 @@ import '@babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import 'intro.js/minified/introjs.min.css';
+import { Provider } from 'react-redux';
 import App from './App';
 import './scss/main.scss';
-import { checkAuth } from './utils/helpers';
+import store from './store/store';
 
-checkAuth();
+const jsx = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-render(<App />, document.getElementById('app'));
+render(jsx, document.getElementById('app'));
