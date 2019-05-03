@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, Image, Segment } from 'semantic-ui-react';
+import { List, Image, Segment, Divider } from 'semantic-ui-react';
 
 /**
  * @returns {JSX.Element} StepList component
@@ -22,9 +22,10 @@ const StepList = ({ steps = {} }) => {
                 <span className="steps-number">{i + 1}</span> {s.description}
               </List.Description>
               <List.Content>
-                <Image size="medium" src={s.images[0]} />
+                <Image size="medium" src={s.images[0]} className="step-image" />
               </List.Content>
             </div>
+            <Divider />
           </List.Item>
         );
       })}
