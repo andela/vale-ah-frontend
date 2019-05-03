@@ -179,7 +179,7 @@ describe('async', () => {
       axios.get.mockResolvedValue(mockData);
 
       const store = mockStore({});
-      await dispatcher.checkAuth()(store.dispatch);
+      await store.dispatch(dispatcher.checkAuth());
 
       const expectedActions = [
         { type: 'AUTH_SUCCESS', payload: { user: mockData.data.user } },
