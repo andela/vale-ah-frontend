@@ -36,7 +36,7 @@ class App extends React.Component {
           position="top-center"
           newestOnTop={false}
           bodyClassName="my-toast"
-          progressClassName="toast-progress"
+          autoClose={2500}
         />
       </Fragment>
     );

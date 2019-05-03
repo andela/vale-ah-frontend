@@ -113,7 +113,7 @@ exports.loadImages = ({ include, options } = {}) => ({
   module: {
     rules: [
       {
-        test: /(.jpe?g|.svg|.png)$/,
+        test: /(.jpe?g|.svg|.png|.gif)$/,
         include,
         use: [
           {

@@ -19,7 +19,7 @@ describe('AuthReducer', () => {
   it('should return initial state', () => {
     expect(authReducer(initialState, {})).toEqual(initialState);
   });
-  it('should handle Login Request', () => {
+  it('should handle auth request', () => {
     expect(
       authReducer(initialState, {
         type: types.AUTH_REQUEST,
@@ -30,7 +30,7 @@ describe('AuthReducer', () => {
     });
   });
 
-  it('should handle Login Success', () => {
+  it('should handle auth success', () => {
     expect(
       authReducer(initialState, {
         type: types.AUTH_SUCCESS,
@@ -45,7 +45,7 @@ describe('AuthReducer', () => {
       },
     });
   });
-  it('should handle Login Failure', () => {
+  it('should handle auth failure', () => {
     expect(
       authReducer(initialState, {
         type: types.AUTH_FAILURE,

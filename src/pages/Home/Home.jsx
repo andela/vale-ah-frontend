@@ -49,24 +49,22 @@ class Home extends Component {
 
     return (
       <div className="homepage-wrapper">
-        <div className="container">
-          <Navbar openModal={openModal} />
-          <Banner openModal={openModal} />
-          <Modal
-            size="mini"
-            className="modal"
-            centered
-            closeIcon
-            open={!!authType || modalOpened}
-            onClose={closeModal}
-          >
-            {authType === 'register' ? (
-              <Register onClose={closeModal} />
-            ) : (
-              <Login onClose={closeModal} />
-            )}
-          </Modal>
-        </div>
+        <Navbar openModal={openModal} />
+        <Banner openModal={openModal} />
+        <Modal
+          size="mini"
+          className="modal"
+          centered
+          closeIcon
+          open={!!authType || modalOpened}
+          onClose={closeModal}
+        >
+          {authType === 'register' ? (
+            <Register onClose={closeModal} />
+          ) : (
+            <Login onClose={closeModal} />
+          )}
+        </Modal>
       </div>
     );
   }

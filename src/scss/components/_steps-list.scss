@@ -1,0 +1,19 @@
+.recipe-steps {
+  width: 100%;
+
+  .step {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .steps-number {
+      padding: 0 0.625rem;
+      margin-right: 0.625rem;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      color: $color-white;
+      background-color: $color-black;
+    }
+  }
+}

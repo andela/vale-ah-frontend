@@ -148,8 +148,10 @@ class RecipeCreationForm extends Component {
     if (prop === 'stepMedia') {
       const { images, videos } = syncedSteps[index];
 
-      syncedSteps[index].images = [...images, ...value.images];
-      syncedSteps[index].videos = [...videos, ...value.videos];
+      if (value.images.length)
+        syncedSteps[index].images = [...images, ...value.images];
+      if (value.videos.length)
+        syncedSteps[index].videos = [...videos, ...value.videos];
 
       this.setState({ steps: syncedSteps });
     }
@@ -177,7 +179,6 @@ class RecipeCreationForm extends Component {
     if (recipeCreation.errors[field]) {
       return recipeCreation.errors[field][0];
     }
-
     return '';
   };
 
